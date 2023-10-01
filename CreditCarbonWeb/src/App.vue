@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink } from 'vue-router'
+// import { RouterLink, RouterView } from 'vue-router'
+// import HelloWorld from './components/HelloWorld.vue'
+
 </script>
 
+
 <template>
-  <header>
+  <!-- <header>
     <img alt="carboncredit" class="logo" src="@/assets/logo.svg" width="50" height="125" />
 
     <div class="wrapper">
       <HelloWorld msg="CrabonCredit" />
 
       <nav style="margin-top: 2px;">
-      <button type="button" class="btn btn-success">Success</button>
+        <button type="button" class="btn btn-success">Success</button>
         <RouterLink to="/home">หน้าแรก</RouterLink>
         <RouterLink to="/about">เกี่ยวกับ</RouterLink>
         <RouterLink to="/">สมัครสมาชิก</RouterLink>
@@ -21,11 +24,71 @@ import HelloWorld from './components/HelloWorld.vue'
 
       </nav>
     </div>
-  </header>
+  </header> -->
 
+
+  <div class="position-absolute top-10 start-50 translate-middle container-fluid" style="top: 40px;">
+    <div class="align-items-center">
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+          <img alt="carboncredit" class="logo" src="@/assets/logo.svg" width="50" height="50" />
+          <a class="navbar-brand" href="#"><h2>Credit Carbon <br></h2></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+            aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse container" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/home">หน้าแรก</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about">เกี่ยวกับ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/">สมัครสมาชิก</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/home">การซื้อขายเครดิตคาร์บอร์น</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/home">ข่าวสาร</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/home">ติดต่อ</a>
+              </li>
+              <!-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Link
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li> -->
+              <!-- <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Link</a>
+              </li> -->
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+          <button class="btn btn-outline-dark" type="submit"> <font-awesome-icon icon="fa-solid fa-user" /> LOGIN</button>
+        </div>
+      </nav>
+    </div>
+  </div>
   <RouterView />
 </template>
 
+<!-- 
 <style scoped>
 header {
   line-height: 1.5;
@@ -88,4 +151,4 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
-</style>
+</style> -->
