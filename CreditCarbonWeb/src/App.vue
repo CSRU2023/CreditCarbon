@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 // import { RouterLink, RouterView } from 'vue-router'
-// import HelloWorld from './components/HelloWorld.vue'
+
+
 
 </script>
 
@@ -17,10 +18,10 @@ import { RouterLink } from 'vue-router'
         <button type="button" class="btn btn-success">Success</button>
         <RouterLink to="/home">หน้าแรก</RouterLink>
         <RouterLink to="/about">เกี่ยวกับ</RouterLink>
-        <RouterLink to="/">สมัครสมาชิก</RouterLink>
-        <RouterLink to="/home">การซื้อขายเครดิตคาร์บอร์น</RouterLink>
-        <RouterLink to="/about">ข่าวสาร</RouterLink>
-        <RouterLink to="/about">ติดต่อ</RouterLink>
+        <RouterLink to="/member">สมัครสมาชิก</RouterLink>
+        <RouterLink to="/external">การซื้อขายเครดิตคาร์บอร์น</RouterLink>
+        <RouterLink to="/event">ข่าวสาร</RouterLink>
+        <RouterLink to="/contact">ติดต่อ</RouterLink>
 
       </nav>
     </div>
@@ -46,16 +47,16 @@ import { RouterLink } from 'vue-router'
                 <a class="nav-link" href="/about">เกี่ยวกับ</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/">สมัครสมาชิก</a>
+                <a class="nav-link" href="/member">สมัครสมาชิก</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/home">การซื้อขายเครดิตคาร์บอร์น</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/home">ข่าวสาร</a>
+                <a class="nav-link" href="/event">ข่าวสาร</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/home">ติดต่อ</a>
+                <a class="nav-link" href="/contact">ติดต่อ</a>
               </li>
               <!-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
@@ -80,7 +81,7 @@ import { RouterLink } from 'vue-router'
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
           </div>
-          <button class="btn btn-outline-dark" type="submit"> <font-awesome-icon icon="fa-solid fa-user" /> LOGIN</button>
+          <a  href="/login" class="btn btn-outline-dark" type="submit"> <font-awesome-icon icon="fa-solid fa-user" /> LOGIN</a>
         </div>
       </nav>
     </div>
