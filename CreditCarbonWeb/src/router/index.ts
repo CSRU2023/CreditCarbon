@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import ContactView from '../views/ContactView.vue'
 import EventView from '../views/EventView.vue'
-import MemView from '../views/MemView.vue'
+// import MemView from '../views/MemView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,11 +32,11 @@ const router = createRouter({
     name: 'event',
     component: EventView
   },
-  {
-    path: '/member',
-    name:'member',
-    component: MemView
-  },
+  // {
+  //   path: '/mem',
+  //   name:'mem',
+  //   component: MemView
+  // },
 
 
   ]
