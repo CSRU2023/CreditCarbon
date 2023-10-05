@@ -1,7 +1,7 @@
 
 <template>
   <main>
-    <h1>Home</h1>
+    <h1>Test</h1>
     <button @click="counter++">Add 1</button>
     <p>The button above has been clicked {{ counter }} times.</p>
     <button @click="$router.push('/about')">About</button>
@@ -9,14 +9,14 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent } from 'vue'
+  import { defineComponent } from 'vue'
 
-    export default defineComponent({
-        data() {
-            return {
-                counter: 0
-            }
-        }
-    })
+  export default defineComponent({
+      data() {
+          return {
+              counter: 0
+          }
+      }
+  })
     
 </script>
