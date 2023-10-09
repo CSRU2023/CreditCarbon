@@ -29,16 +29,35 @@
               </button>
 
               <h1 class="display-3">เกี่ยวกับ </h1>
-        
-              
 
-              
+                    <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="..." class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">carboncredit</h5>
+        <p class="card-text">..................................This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+</div>
 
-       
+
+                <figure class="text-end">
+  <blockquote class="blockquote">
+    <p>A well-known quote, contained in a blockquote element.</p>
+  </blockquote>
+  <figcaption class="blockquote-footer">
+    Someone famous in <cite title="Source Title">Source Title</cite>
+  </figcaption>
+</figure>
+
+    
             </div>
-       
-             
-       
+   
        </div>
 </template>
 
@@ -52,10 +71,6 @@ export default (await import('vue')).defineComponent({
 
 
 </style>
-
-
-
-
 
 
 
