@@ -12,8 +12,8 @@
   </div>
 
   <div class="container" style="
-    padding-right: 200px;
-    padding-left: 200px;">
+    padding-right: 100px;
+    padding-left: 100px;">
   <div class="row">
 
 <label for="login" style = "margin-bottom: 20px; text-align: center;
@@ -37,3 +37,18 @@
 
 
 </template>
+
+
+<style>
+
+@media (min-width: 1024px) {
+  .container-sm {
+    min-height: 50vh;
+    display: right;
+    align-items: center;
+    margin-right: 100px;
+  }
+}
+
+</style>
+
