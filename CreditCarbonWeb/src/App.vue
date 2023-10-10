@@ -59,8 +59,8 @@ import { RouterView } from 'vue-router'
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
           </div>
-          <button class="btn btn-outline-dark" type="submit"> <font-awesome-icon icon="fa-solid fa-user" />
-            LOGIN</button>
+          <a class="btn btn-outline-dark" type="submit" href="/login" > <font-awesome-icon icon="fa-solid fa-user" />
+            LOGIN</a>
         </div>
       </nav>
       <nav class="navbar navbar-expand-lg navbar-light container">
@@ -69,3 +69,4 @@ import { RouterView } from 'vue-router'
     </div>
   </div>
 </template>
+
