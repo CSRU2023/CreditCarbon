@@ -1,67 +1,215 @@
+<template>
+  <div>
+    <div>
+      <div class="card mb-lg-3" style="max-width: 3000px">
+        <img src="@/assets/img/contact.jpg" class="card-img" alt="..." width="500" height="200" />
+        <div class="card-img-overlay">
+          <div class="jumbotron text-center">
+            <h1>Contact Us</h1>
+            <h1>เกี่ยวกับ</h1>
+          </div>
+        </div>
 
-<template lang="">
-<div class="card bg-dark text-white">
-  <img src="car3.jpg" class="card-img" alt="...">
-  <div class="card-img-overlay">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-    <p class="card-text">Last updated 3 mins ago</p>
+        <div class="row g-0">
+          <div class="col-md-5">
+            <img src="@/assets/img/rum.jpg" class="img-fluid rounded-start" alt="..." />
+          </div>
+          <div class="col-lg-5">
+            <div class="card-body">
+              <div class="contact_address border_outline-gray">
+                <h1 class="topic_border-b m_b-20px">ช่องทางติดต่อเรา</h1>
+                <ul class="bullet_default">
+                  <h2>
+                    <p class="card-text">
+                      มหาวิทยาลัยรามคำแหง 282 ถนนรามคำแหง แขวงหัวหมาก เขตบางกะปิ กรุงเทพมหานคร 10240
+                    </p>
+                  </h2>
+                  <li>โทรศัพท์: 0-2310-8000</li>
+                  <li>โทรสาร: 02 504 4826</li>
+                  <li class="break_word">
+                    อีเมล: <a href="mailto:info@tei.or.th">info@tei.or.th</a>
+                  </li>
+                  <li class="break_word">
+                    เฟซบุ๊ก:
+                    <a
+                      href="https://web.facebook.com/ramkhamhaeng.ru/?locale=th_TH&_rdc=1&_rdr"
+                      target="new"
+                      >https://web.facebook.com/ramkhamhaeng.ru</a
+                    >
+                  </li>
+                  <li>
+                    แผนที่สถาบัน:
+                    <a
+                      href="https://www.google.com/maps/place/%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%A7%E0%B8%B4%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B8%A5%E0%B8%B1%E0%B8%A2%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%84%E0%B8%B3%E0%B9%81%E0%B8%AB%E0%B8%87/@13.7810931,100.5149568,12z/data=!4m10!1m2!2m1!1z4Lih4Lir4Liy4Lil4Lix4Lii4Lij4Liy4Lih4LiE4Liz4LmB4Lir4LiH!3m6!1s0x30e29f27633f61fb:0x4a3c68ddead1a6a8!8m2!3d13.7587013!4d100.6181488!15sCirguKHguKvguLLguKXguLHguKLguKPguLLguKHguITguLPguYHguKvguIeSARFwdWJsaWNfdW5pdmVyc2l0eeABAA!16s%2Fm%2F0267zm9?hl&entry=ttu"
+                      target="new"
+                      >แผนที่สถาบัน</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+       <div class="wrap_googlemap">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3875.3677606230644!2d100.61578432962449!3d13.756682135431701!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f27633f61fb%3A0x4a3c68ddead1a6a8!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4Lij4Liy4Lih4LiE4Liz4LmB4Lir4LiH!5e0!3m2!1sth!2sth!4v1697194119239!5m2!1sth!2sth"
+        width="100%"
+        height="500%"
+        frameborder="1"
+        style="border: 0"
+        allowfullscreen=""
+      ></iframe>
+    </div>
+   
+    </div>
+    <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-secondary">
+      <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
+        <div class="row">
+          <div class="col-lg-3 mb-3">
+            <a
+              class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none"
+              href="/"
+              aria-label="Bootstrap"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="32"
+                class="d-block me-2"
+                viewBox="0 0 118 94"
+                role="img"
+              >
+                <title>Bootstrap</title>
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+              <span class="fs-5">Bootstrap</span>
+            </a>
+            <ul class="list-unstyled small">
+              <li class="mb-2">
+                Designed and built with all the love in the world by the
+                <a href="/docs/5.3/about/team/">Bootstrap team</a> with the help of
+                <a href="https://github.com/twbs/bootstrap/graphs/contributors">our contributors</a
+                >.
+              </li>
+              <li class="mb-2">
+                Code licensed
+                <a
+                  href="https://github.com/twbs/bootstrap/blob/main/LICENSE"
+                  target="_blank"
+                  rel="license noopener"
+                  >MIT</a
+                >, docs
+                <a
+                  href="https://creativecommons.org/licenses/by/3.0/"
+                  target="_blank"
+                  rel="license noopener"
+                  >CC BY 3.0</a
+                >.
+              </li>
+              <li class="mb-2">Currently v5.3.2.</li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-2 offset-lg-1 mb-3">
+            <h5>Links</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2"><a href="/">Home</a></li>
+              <li class="mb-2"><a href="/docs/5.3/">Docs</a></li>
+              <li class="mb-2"><a href="/docs/5.3/examples/">Examples</a></li>
+              <li class="mb-2"><a href="https://icons.getbootstrap.com/">Icons</a></li>
+              <li class="mb-2"><a href="https://themes.getbootstrap.com/">Themes</a></li>
+              <li class="mb-2"><a href="https://blog.getbootstrap.com/">Blog</a></li>
+              <li class="mb-2">
+                <a href="https://cottonbureau.com/people/bootstrap" target="_blank" rel="noopener"
+                  >Swag Store</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-2 mb-3">
+            <h5>Guides</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2"><a href="/docs/5.3/getting-started/">Getting started</a></li>
+              <li class="mb-2">
+                <a href="/docs/5.3/examples/starter-template/">Starter template</a>
+              </li>
+              <li class="mb-2"><a href="/docs/5.3/getting-started/webpack/">Webpack</a></li>
+              <li class="mb-2"><a href="/docs/5.3/getting-started/parcel/">Parcel</a></li>
+              <li class="mb-2"><a href="/docs/5.3/getting-started/vite/">Vite</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-2 mb-3">
+            <h5>Projects</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="https://github.com/twbs/bootstrap" target="_blank" rel="noopener"
+                  >Bootstrap 5</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="https://github.com/twbs/bootstrap/tree/v4-dev"
+                  target="_blank"
+                  rel="noopener"
+                  >Bootstrap 4</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="https://github.com/twbs/icons" target="_blank" rel="noopener">Icons</a>
+              </li>
+              <li class="mb-2">
+                <a href="https://github.com/twbs/rfs" target="_blank" rel="noopener">RFS</a>
+              </li>
+              <li class="mb-2">
+                <a href="https://github.com/twbs/examples/" target="_blank" rel="noopener"
+                  >Examples repo</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-2 mb-3">
+            <h5>Community</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="https://github.com/twbs/bootstrap/issues" target="_blank" rel="noopener"
+                  >Issues</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="https://github.com/twbs/bootstrap/discussions"
+                  target="_blank"
+                  rel="noopener"
+                  >Discussions</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="https://github.com/sponsors/twbs" target="_blank" rel="noopener"
+                  >Corporate sponsors</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="https://opencollective.com/bootstrap" target="_blank" rel="noopener"
+                  >Open Collective</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="https://stackoverflow.com/questions/tagged/bootstrap-5"
+                  target="_blank"
+                  rel="noopener"
+                  >Stack Overflow</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
-</div>
-
-       <div class="card" style="width: 50rem; height: 50rem;">
-  <img src="@/assets/img/rum.jpg" class="card-img" alt="Contact">
-  <div class="card-body">
-  <div class="contact_address border_outline-gray">
-                            
-                            <h1 class="topic_border-b m_b-20px">ช่องทางติดต่อเรา</h1><ul class="bullet_default">
-                                <li>โทรศัพท์: 0-2310-8000</li>
-                                <li>โทรสาร: 02 504 4826</li>
-                                <li class="break_word">อีเมล: <a href="mailto:info@tei.or.th">info@tei.or.th</a></li>
-                                <li class="break_word">เฟซบุ๊ก: <a href="https://web.facebook.com/ramkhamhaeng.ru/?locale=th_TH&_rdc=1&_rdr" target="new">https://web.facebook.com/ramkhamhaeng.ru/?locale=th_TH&_rdc=1&_rdr</a></li>
-                                <li class="break_word">ทวิตเตอร์: <a href="https://twitter.com/TEIThailand" target="new">https://twitter.com/TEIThailand</a></li>
-                                <li>แผนที่สถาบัน: <a href="https://www.google.com/maps/place/%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%9A%E0%B8%B1%E0%B8%99%E0%B8%AA%E0%B8%B4%E0%B9%88%E0%B8%87%E0%B9%81%E0%B8%A7%E0%B8%94%E0%B8%A5%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B9%84%E0%B8%97%E0%B8%A2/@13.920623,100.538875,14z/data=!4m5!3m4!1s0x0:0x6c1325fd3e89e70!8m2!3d13.9206231!4d100.5388746?hl" target="new">กูเกิ้ลแมป</a> | <a href="../img/contactus/teimap-t.jpg" target="new">ภาพแผนที่</a></li>
-                                <li>แนะนำสถาบัน: <a href="../file/files/TEI-PR.pdf" target="new">ดาวน์โหลดไฟล์ .pdf</a></li>
-                            </ul>
-                        </div>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-        
 </template>
-
-<script>
-export default (await import('vue')).defineComponent({
-
-})
-</script>
-
-<style lang="">
-
-
-</style>
-
-
-
-
-
-
-
-<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
