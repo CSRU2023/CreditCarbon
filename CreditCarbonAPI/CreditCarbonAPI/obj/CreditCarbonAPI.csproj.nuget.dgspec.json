@@ -49,7 +49,7 @@
               "target": "Package",
               "version": "[7.0.4, )"
             },
-            "Microsoft.EntityFrameworkCore": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[7.0.12, )"
             },
