@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using CreditCarbonAPI.Models;
+using CreditCarbonAPI.Repositories;
 
 namespace CreditCarbonAPI.Controllers
 {
@@ -12,10 +14,13 @@ namespace CreditCarbonAPI.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private CarbonCreditEfRepository<ProjectCarbon> _carbonCreditEfRepository;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger,
+            CarbonCreditEfRepository<ProjectCarbon> carbonCreditEfRepository)
         {
             _logger = logger;
+            _carbonCreditEfRepository = carbonCreditEfRepository;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -28,6 +33,14 @@ namespace CreditCarbonAPI.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet(Name = "GetCarbonCredit")]
+        public IEnumerable<ProjectCarbon> GetCarbonCredit()
+        {
+            var listProjectCarbon = _carbonCreditEfRepository.GetProjectCarbon();
+
+            return listProjectCarbon;
         }
     }
 }
