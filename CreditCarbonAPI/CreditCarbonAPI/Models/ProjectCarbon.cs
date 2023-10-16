@@ -11,8 +11,6 @@ public partial class ProjectCarbon
 
     public int UserId { get; set; }
 
-    public int StatusId { get; set; }
-
     public string ProjectName { get; set; }
 
     public string ProjectDescription { get; set; }
@@ -49,9 +47,7 @@ public partial class ProjectCarbon
 
     public int UpdatedByUserId { get; set; }
 
-    public virtual ICollection<CarbonMarket> CarbonMarkets { get; set; } = new List<CarbonMarket>();
-
-    public virtual Status Status { get; set; }
+    public virtual ICollection<ProjectCarbonMarket> ProjectCarbonMarkets { get; set; } = new List<ProjectCarbonMarket>();
 
     public virtual TechnologyType TechnologyType { get; set; }
 

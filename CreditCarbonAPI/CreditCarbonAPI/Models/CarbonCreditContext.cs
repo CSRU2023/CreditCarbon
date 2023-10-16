@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using CreditCarbonAPI.Models;
 using Microsoft.EntityFrameworkCore;
-
-namespace CreditCarbonAPI.Models;
 
 public partial class CarbonCreditContext : DbContext
 {
@@ -15,9 +14,9 @@ public partial class CarbonCreditContext : DbContext
     {
     }
 
-    public virtual DbSet<CarbonMarket> CarbonMarkets { get; set; }
-
     public virtual DbSet<ProjectCarbon> ProjectCarbons { get; set; }
+
+    public virtual DbSet<ProjectCarbonMarket> ProjectCarbonMarkets { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
@@ -27,25 +26,8 @@ public partial class CarbonCreditContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=C1001226\\SQLEXPRESS;Database=CarbonCredit;User=sa; Password=1234; TrustServerCertificate=True; Encrypt=False; MultipleActiveResultSets=true");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<CarbonMarket>(entity =>
-        {
-            entity.HasKey(e => e.CarbonMarketsId);
-
-            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
-
-            entity.HasOne(d => d.ProjectCarbon).WithMany(p => p.CarbonMarkets)
-                .HasForeignKey(d => d.ProjectCarbonId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_CarbonMarkets_ProjectCarbon");
-        });
-
         modelBuilder.Entity<ProjectCarbon>(entity =>
         {
             entity.ToTable("ProjectCarbon");
@@ -65,11 +47,6 @@ public partial class CarbonCreditContext : DbContext
             entity.Property(e => e.Tel).HasMaxLength(255);
             entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
-            entity.HasOne(d => d.Status).WithMany(p => p.ProjectCarbons)
-                .HasForeignKey(d => d.StatusId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ProjectCarbon_Status");
-
             entity.HasOne(d => d.TechnologyType).WithMany(p => p.ProjectCarbons)
                 .HasForeignKey(d => d.TechnologyTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -79,6 +56,19 @@ public partial class CarbonCreditContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ProjectCarbon_User");
+        });
+
+        modelBuilder.Entity<ProjectCarbonMarket>(entity =>
+        {
+            entity.HasKey(e => e.ProjectCarbonMarketsId).HasName("PK_CarbonMarkets");
+
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+
+            entity.HasOne(d => d.ProjectCarbon).WithMany(p => p.ProjectCarbonMarkets)
+                .HasForeignKey(d => d.ProjectCarbonId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProjectCarbonMarkets_ProjectCarbon");
         });
 
         modelBuilder.Entity<Role>(entity =>

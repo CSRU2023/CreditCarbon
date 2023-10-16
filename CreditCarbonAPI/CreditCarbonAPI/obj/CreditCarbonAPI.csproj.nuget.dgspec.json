@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\CreditCarbon\\CreditCarbonAPI\\CreditCarbonAPI\\CreditCarbonAPI.csproj": {}
+    "D:\\Projects\\CreditCarbon\\CreditCarbonApi\\CreditCarbonAPI\\CreditCarbonAPI.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\CreditCarbon\\CreditCarbonAPI\\CreditCarbonAPI\\CreditCarbonAPI.csproj": {
+    "D:\\Projects\\CreditCarbon\\CreditCarbonApi\\CreditCarbonAPI\\CreditCarbonAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\CreditCarbon\\CreditCarbonAPI\\CreditCarbonAPI\\CreditCarbonAPI.csproj",
+        "projectUniqueName": "D:\\Projects\\CreditCarbon\\CreditCarbonApi\\CreditCarbonAPI\\CreditCarbonAPI.csproj",
         "projectName": "CreditCarbonAPI",
-        "projectPath": "D:\\Projects\\CreditCarbon\\CreditCarbonAPI\\CreditCarbonAPI\\CreditCarbonAPI.csproj",
+        "projectPath": "D:\\Projects\\CreditCarbon\\CreditCarbonApi\\CreditCarbonAPI\\CreditCarbonAPI.csproj",
         "packagesPath": "C:\\Users\\Windows 10\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\CreditCarbon\\CreditCarbonAPI\\CreditCarbonAPI\\obj\\",
+        "outputPath": "D:\\Projects\\CreditCarbon\\CreditCarbonApi\\CreditCarbonAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

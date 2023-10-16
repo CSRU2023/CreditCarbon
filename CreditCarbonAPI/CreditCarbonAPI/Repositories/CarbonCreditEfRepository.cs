@@ -1,4 +1,5 @@
 using CreditCarbonAPI.Models;
+using CreditCarbonAPI.Repositories.interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CreditCarbonAPI.Repositories
@@ -7,19 +8,37 @@ namespace CreditCarbonAPI.Repositories
     /// 
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public class CarbonCreditEfRepository<TEntity> where TEntity : class
+    public class CarbonCreditEfRepository<TEntity> : ICarbonCreditEfRepository<TEntity> where TEntity : class
+    // public class CarbonCreditEfRepository : ICarbonCreditEfRepository
     {
-        internal CarbonCreditContext context;
-        internal DbSet<TEntity> dbSet;
+        private readonly CarbonCreditContext _context;
+        private readonly DbSet<TEntity> _dbSet;
         public CarbonCreditEfRepository(CarbonCreditContext context)
         {
-            this.context = context;
-            this.dbSet = context.Set<TEntity>();
+            _context = context;
+            _dbSet = _context.Set<TEntity>();
         }
 
-        public IEnumerable<ProjectCarbon> GetProjectCarbon()
+        public IEnumerable<TEntity> Gets()
         {
-            return context.ProjectCarbons.ToList();
+            return _dbSet.ToList();
         }
+
+        public virtual void Insert(TEntity entitiy)
+        {
+            _context.Add(entitiy);
+            _context.SaveChanges();
+        }
+
+        public virtual void Update(TEntity entitiy)
+        {
+            _context.Update(entitiy); 
+            _context.SaveChanges();
+        }
+
+
+        
+
     }
+
 }

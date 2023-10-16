@@ -3302,11 +3302,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\CreditCarbon\\CreditCarbonAPI\\CreditCarbonAPI\\CreditCarbonAPI.csproj",
+      "projectUniqueName": "D:\\Projects\\CreditCarbon\\CreditCarbonApi\\CreditCarbonAPI\\CreditCarbonAPI.csproj",
       "projectName": "CreditCarbonAPI",
-      "projectPath": "D:\\Projects\\CreditCarbon\\CreditCarbonAPI\\CreditCarbonAPI\\CreditCarbonAPI.csproj",
+      "projectPath": "D:\\Projects\\CreditCarbon\\CreditCarbonApi\\CreditCarbonAPI\\CreditCarbonAPI.csproj",
       "packagesPath": "C:\\Users\\Windows 10\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\CreditCarbon\\CreditCarbonAPI\\CreditCarbonAPI\\obj\\",
+      "outputPath": "D:\\Projects\\CreditCarbon\\CreditCarbonApi\\CreditCarbonAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3383,12 +3383,6 @@
     }
   },
   "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file D:\\Projects\\CreditCarbon\\CreditCarbonAPI\\CreditCarbonAPI\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    },
     {
       "code": "NU1803",
       "level": "Warning",

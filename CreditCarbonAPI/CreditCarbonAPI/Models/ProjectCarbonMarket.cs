@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace CreditCarbonAPI.Models;
 
-public partial class CarbonMarket
+public partial class ProjectCarbonMarket
 {
-    public int CarbonMarketsId { get; set; }
+    public int ProjectCarbonMarketsId { get; set; }
 
     public int ProjectCarbonId { get; set; }
 
