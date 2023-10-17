@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using CreditCarbonAPI.Models;
 using Microsoft.EntityFrameworkCore;
+
+namespace CreditCarbonAPI.Models;
 
 public partial class CarbonCreditContext : DbContext
 {
-    public CarbonCreditContext()
-    {
-    }
-
     public CarbonCreditContext(DbContextOptions<CarbonCreditContext> options)
         : base(options)
     {
@@ -25,6 +22,10 @@ public partial class CarbonCreditContext : DbContext
     public virtual DbSet<TechnologyType> TechnologyTypes { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<Wallet> Wallets { get; set; }
+
+    public virtual DbSet<WalletTransaction> WalletTransactions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -89,7 +90,8 @@ public partial class CarbonCreditContext : DbContext
 
             entity.ToTable("Status");
 
-            entity.Property(e => e.StatusText).HasMaxLength(20);
+            entity.Property(e => e.Description).HasMaxLength(50);
+            entity.Property(e => e.Name).HasMaxLength(50);
         });
 
         modelBuilder.Entity<TechnologyType>(entity =>
@@ -106,22 +108,56 @@ public partial class CarbonCreditContext : DbContext
             entity.ToTable("User");
 
             entity.Property(e => e.Address).HasMaxLength(255);
+            entity.Property(e => e.AmphurKhet)
+                .HasMaxLength(100)
+                .HasColumnName("Amphur_Khet");
             entity.Property(e => e.Business).HasMaxLength(100);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.LastName).HasMaxLength(50);
+            entity.Property(e => e.Occupation).HasMaxLength(100);
             entity.Property(e => e.Password).HasMaxLength(10);
+            entity.Property(e => e.Position).HasMaxLength(100);
+            entity.Property(e => e.Province).HasMaxLength(100);
+            entity.Property(e => e.TambolKhwaeng)
+                .HasMaxLength(100)
+                .HasColumnName("Tambol_Khwaeng");
             entity.Property(e => e.Tel).HasMaxLength(10);
             entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
             entity.Property(e => e.UserName).HasMaxLength(50);
-            entity.Property(e => e.Wallet).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.WalletCarbon).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.ZipCode).HasColumnName("Zip_Code");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_User_Role");
+        });
+
+        modelBuilder.Entity<Wallet>(entity =>
+        {
+            entity.ToTable("Wallet");
+
+            entity.Property(e => e.WalletId).ValueGeneratedNever();
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+            entity.Property(e => e.WalletCarbon).HasColumnType("numeric(18, 2)");
+            entity.Property(e => e.WalletMoney).HasColumnType("decimal(18, 2)");
+        });
+
+        modelBuilder.Entity<WalletTransaction>(entity =>
+        {
+            entity.ToTable("WalletTransaction");
+
+            entity.Property(e => e.WalletTransactionId).ValueGeneratedNever();
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Image)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Massage).HasMaxLength(100);
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+            entity.Property(e => e.WalletCarbon).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.WalletMoney).HasColumnType("decimal(18, 2)");
         });
 
         OnModelCreatingPartial(modelBuilder);

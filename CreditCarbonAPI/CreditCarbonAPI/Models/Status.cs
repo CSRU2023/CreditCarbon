@@ -7,5 +7,9 @@ public partial class Status
 {
     public int StatusId { get; set; }
 
-    public string StatusText { get; set; }
+    public string Name { get; set; }
+
+    public string Description { get; set; }
+
+    public int? OrderRank { get; set; }
 }

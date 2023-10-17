@@ -1,0 +1,7 @@
+dotnet ef database update -c CarbonCreditContext
+
+//เริ่ม
+dotnet ef dbcontext scaffold "Server=C1001226\SQLEXPRESS;Database=CarbonCredit;User=sa; Password=1234; TrustServerCertificate=True;Encrypt=False;" Microsoft.EntityFrameworkCore.SqlServer -o Models -f
+
+//script สำหรับเพิ่ม,อัพเดต ตาราง
+dotnet ef dbcontext scaffold "Server=C1001226\SQLEXPRESS;Database=CarbonCredit;User=sa; Password=1234; TrustServerCertificate=True;Encrypt=False;" Microsoft.EntityFrameworkCore.SqlServer -o Models --no-onconfiguring --no-build -t ProjectCarbon -t ProjectCarbonMarkets -t Role -t Status -t TechnologyType -t User -t Wallet -t WalletTransaction -f

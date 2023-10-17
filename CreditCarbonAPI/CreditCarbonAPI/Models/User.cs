@@ -21,13 +21,25 @@ public partial class User
 
     public string Tel { get; set; }
 
-    public string Address { get; set; }
-
     public string Business { get; set; }
 
-    public decimal? Wallet { get; set; }
+    public string Occupation { get; set; }
 
-    public decimal? WalletCarbon { get; set; }
+    public string Position { get; set; }
+
+    public int? RegistrationNumber { get; set; }
+
+    public string Address { get; set; }
+
+    public string TambolKhwaeng { get; set; }
+
+    public string AmphurKhet { get; set; }
+
+    public string Province { get; set; }
+
+    public int? ZipCode { get; set; }
+
+    public bool IsActive { get; set; }
 
     public DateTime CreatedDate { get; set; }
 
