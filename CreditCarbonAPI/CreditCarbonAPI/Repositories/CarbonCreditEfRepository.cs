@@ -9,7 +9,6 @@ namespace CreditCarbonAPI.Repositories
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     public class CarbonCreditEfRepository<TEntity> : ICarbonCreditEfRepository<TEntity> where TEntity : class
-    // public class CarbonCreditEfRepository : ICarbonCreditEfRepository
     {
         private readonly CarbonCreditContext _context;
         private readonly DbSet<TEntity> _dbSet;
@@ -35,9 +34,6 @@ namespace CreditCarbonAPI.Repositories
             _context.Update(entitiy); 
             _context.SaveChanges();
         }
-
-
-        
 
     }
 
