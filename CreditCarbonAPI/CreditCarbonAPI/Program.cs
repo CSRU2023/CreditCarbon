@@ -22,7 +22,8 @@ builder.Services.AddControllers();
 //builder.Services.AddDbContext<CarbonCreditContext>();
 builder.Services.AddDbContext<CarbonCreditContext>(options =>
 {
-    options.UseSqlServer("Server=C1001226\\SQLEXPRESS;Database=CarbonCredit;User=sa; Password=1234; TrustServerCertificate=True;Encrypt=False;");
+    // options.UseSqlServer("Server=C1001226\\SQLEXPRESS;Database=CarbonCredit;User=sa; Password=1234; TrustServerCertificate=True;Encrypt=False;");
+    options.UseSqlServer("Server=MSI\\MSSQLSERVER2;Database=CarbonCredit;Trusted_Connection=True;TrustServerCertificate=True;"); //Tam
 });
 
 //AddScoped
