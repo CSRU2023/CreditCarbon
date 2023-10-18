@@ -31,10 +31,10 @@ import { RouterView } from 'vue-router'
                 <a class="nav-link" href="/home">การซื้อขายเครดิตคาร์บอร์น</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/event">ข่าวสาร</a>
+                <a class="nav-link" href="/contact">ติดต่อ</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/contact">ติดต่อ</a>
+                <a class="nav-link" href="/user">user</a>
               </li>
               <!-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
@@ -68,5 +68,19 @@ import { RouterView } from 'vue-router'
       </nav>
     </div>
   </div>
+  
+  <font-awesome-icon
+    id="fa-check-icon"
+    icon="fa-solid fa-check"
+    class="d-none text-success fa-lg" />
+  <font-awesome-icon
+    id="fa-trash-icon"
+    icon="fa-solid fa-trash-can"
+    class="d-none" />
+  <font-awesome-icon
+    id="fa-pen-to-square-icon"
+    icon="fa-solid fa-pen-to-square"
+    class="d-none" />
+  <font-awesome-icon id="fa-eye-icon" icon="fa-solid fa-eye" class="d-none" />
 </template>
 

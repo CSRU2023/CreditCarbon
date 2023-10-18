@@ -4,8 +4,19 @@ using CreditCarbonAPI.Repositories;
 using CreditCarbonAPI.Repositories.interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
+var allowCors = "AllowCors";
 
 // Add services to the container.
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowCors",
+        policy =>
+        {
+            policy.WithOrigins("http://127.0.0.1:5173")
+                   .WithExposedHeaders("x-custom-header");
+        });
+});
 
 builder.Services.AddControllers();
 //builder.Services.AddDbContext<CarbonCreditContext>();
@@ -17,6 +28,7 @@ builder.Services.AddDbContext<CarbonCreditContext>(options =>
 //AddScoped
 builder.Services.AddScoped(typeof(ICarbonCreditEfRepository<>), typeof(CarbonCreditEfRepository<>));
 builder.Services.AddScoped<IProjectCarbonMarketsRepository, ProjectCarbonMarketsRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -33,6 +45,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowCors");
 
 app.UseAuthorization();
 
