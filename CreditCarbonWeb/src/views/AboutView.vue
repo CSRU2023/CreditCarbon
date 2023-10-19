@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="container-fluid">
     <div class="col-12">
       <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -32,38 +33,30 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+</div>
+</div>
 
-      <div>
-        <h1 class="display-3">เกี่ยวกับ</h1>
-        <div class="card mb-3" style="max-width: 100%">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="..." class="img-fluid rounded-start" alt="..." />
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">carboncredit</h5>
-                <p class="card-text">
-                  ..................................This is a wider card with supporting text below
-                  as a natural lead-in to additional content. This content is a little bit longer.
-                </p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
+<div class="flexi group description">
+										<div class="desc-content field_text"><p><strong>การพิจารณาขึ้นทะเบียนโครงการ </strong><strong>T-VER</strong></p>
+<ol>
+<li>ดำเนินกิจกรรมของโครงการเป็นไปตามกฎหมายหรือระเบียบที่เกี่ยวข้อง และมีการดำเนินงานสอดคล้องตามแนวทางการพัฒนาโครงการลดก๊าซเรือนกระจกภาคสมัครใจตามมาตรฐานของประเทศไทย (T-VER)</li>
+<li>มีการดำเนินงานเข้าข่ายโครงการลดก๊าซเรือนกระจกที่ไม่ต้องพิสูจน์ส่วนเพิ่มเติม (Positive List) หรือมีการดำเนินงานเพิ่มเติมจากการดำเนินงานตามปกติ (Additionality) ตามหลักเกณฑ์ที่คณะกรรมการ อบก. กำหนด</li>
+<li>สอดคล้องกับระเบียบวิธีลดก๊าซเรือนกระจกภาคสมัครใจ (T-VER Methodology) ตามที่คณะกรรมการ อบก. กำหนด</li>
+<li>ประเมินศักยภาพการลดหรือกักเก็บก๊าซเรือนกระจกของโครงการเป็นไปตามระเบียบวิธีลดก๊าซเรือนกระจกภาคสมัครใจ (T-VER Methodology)</li>
+<li>ต้องได้รับการตรวจสอบความใช้ได้ (Validation) จากผู้ประเมินภายนอกสำหรับโครงการภาคสมัครใจ ที่ได้รับการขึ้นทะเบียนจากคณะกรรมการ อบก.</li>
+<li>ใช้วิธีการติดตามผล และรายงานการลดก๊าซเรือนกระจกตามระเบียบวิธีลดก๊าซเรือนกระจกภาคสมัครใจ (T-VER Methodology)</li>
+</ol>
+<p>&nbsp;</p>
+<p><strong>การพิจารณารับรองปริมาณก๊าซเรือนกระจก&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong></p>
+<ol>
+<li>ดำเนินกิจกรรมของโครงการ T-VER เป็นไปตามกฎหมายหรือระเบียบที่เกี่ยวข้อง และมีการดำเนินงานสอดคล้องตามแนวทางการพัฒนาโครงการลดก๊าซเรือนกระจกภาคสมัครใจตามมาตรฐานของประเทศไทย (T-VER)</li>
+<li>ติดตามผลการลดและ/หรือกักเก็บก๊าซเรือนกระจก และเก็บข้อมูลโครงการ T-VER ตามที่ระบุในเอกสารข้อเสนอโครงการที่ได้ยื่นขอขึ้นทะเบียนโครงการ T-VER และหากมีการเปลี่ยนแปลงให้ปฏิบัติตามหลักเกณฑ์ที่คณะกรรมการ อบก. กำหนด</li>
+<li>ปริมาณก๊าซเรือนกระจกที่ขอรับรอง ต้องคำนวณตามระเบียบวิธีลดก๊าซเรือนกระจกภาคสมัครใจ (T-VER Methodology) ตามที่ได้เสนอในเอกสารข้อเสนอโครงการที่ได้ยื่นขอขึ้นทะเบียนโครงการ T-VER และหากมีการเปลี่ยนแปลงให้ปฏิบัติตามหลักเกณฑ์ที่คณะกรรมการ อบก. กำหนด</li>
+<li>ต้องได้รับการทวนสอบ (Verification) จากผู้ประเมินภายนอกสำหรับโครงการภาคสมัครใจที่ได้รับการขึ้นทะเบียนจากคณะกรรมการ อบก.</li>
+</ol></div>
+					</div>
           </div>
-        </div>
-
-        <figure class="text-end">
-          <blockquote class="blockquote">
-            <p>A well-known quote, contained in a blockquote element.</p>
-          </blockquote>
-          <figcaption class="blockquote-footer">
-            Someone famous in <cite title="Source Title">Source Title</cite>
-          </figcaption>
-        </figure>
-      </div>
-    </div>
-  </div>
+        
 </template>
 
 <style scoped></style>
