@@ -13,12 +13,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowCors",
         policy =>
         {
-            policy.WithOrigins("http://127.0.0.1:5173")
+            policy.WithOrigins("http://localhost:5173")
                    .WithExposedHeaders("x-custom-header");
         });
 });
 
 builder.Services.AddControllers();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 //builder.Services.AddDbContext<CarbonCreditContext>();
 builder.Services.AddDbContext<CarbonCreditContext>(options =>
 {
