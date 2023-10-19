@@ -24,27 +24,27 @@
             <label class="form-label h5 mb-3">รายละเอียดโครงการ</label>
             <div class="col-12 mb-2">
               <label for="projectName" class="form-label">ชื่อโครงการ <span class="text-danger">*</span></label>
-              <Field type="text" class="form-control" id="projectName" name="projectName" />
+              <Field type="text" class="form-control" id="projectName" name="projectName" :class="{ 'is-invalid': errors.projectName }" />
               <ErrorMessage class="invalid-feedback" name="projectName" />
             </div>
             <div class="col-6 mb-2">
               <label for="location" class="form-label">ที่ตั้งโครงการ <span class="text-danger">*</span></label>
-              <Field type="text" class="form-control" id="location" name="location" />
+              <Field type="text" class="form-control" id="location" name="location" :class="{ 'is-invalid': errors.location }"/>
               <ErrorMessage class="invalid-feedback" name="location" />
             </div>
             <div class="col-6 mb-2">
               <label for="locationCoordinates" class="form-label">พิกัดที่ตั้งโครงการ</label>
-              <Field type="text" class="form-control" id="locationCoordinates" name="locationCoordinates" />
+              <Field type="text" class="form-control" id="locationCoordinates" name="locationCoordinates" :class="{ 'is-invalid': errors.locationCoordinates }"/>
               <ErrorMessage class="invalid-feedback" name="locationCoordinates" />
             </div>
             <div class="col-6 mb-2">
               <label for="investment" class="form-label">เงินลงทุนทั้งหมดของโครงการ <span class="text-danger">*</span></label>
-              <Field type="text" class="form-control" id="investment" name="investment"/>
+              <Field type="text" class="form-control" id="investment" name="investment" :class="{ 'is-invalid': errors.investment }"/>
               <ErrorMessage class="invalid-feedback" name="investment" />
             </div>
             <div class="col-6 mb-2">
               <label for="amountGreenhouseGases" class="form-label">ปริมาณก๊าซเรือนกระจกที่คาดว่าจะลด/ดูดกลับได้ <span class="text-danger">*</span></label>
-              <Field type="text" class="form-control" id="amountGreenhouseGases" name="amountGreenhouseGases"/>
+              <Field type="text" class="form-control" id="amountGreenhouseGases" name="amountGreenhouseGases" :class="{ 'is-invalid': errors.amountGreenhouseGases }"/>
               <ErrorMessage class="invalid-feedback" name="amountGreenhouseGases" />
             </div>
             <div class="col-6 mb-2">
@@ -143,9 +143,9 @@
               <ErrorMessage class="invalid-feedback" name="tel" />
             </div>
             <div class="col-6 mb-2">
-              <label for="amountGreenhouseGases" class="form-label">E-mail<span class="text-danger">*</span></label>
-              <Field type="text" class="form-control" id="amountGreenhouseGases" name="amountGreenhouseGases" />
-              <ErrorMessage class="invalid-feedback" name="amountGreenhouseGases" />
+              <label for="email" class="form-label">E-mail<span class="text-danger">*</span></label>
+              <Field type="text" class="form-control" id="email" name="email" />
+              <ErrorMessage class="invalid-feedback" name="email" />
             </div>
           </div>
           <div
@@ -223,18 +223,18 @@ let statusSetLoanPayment = false
 let parentLoanPaymentId
 
 const validationSchema = yup.object({
-  // companyId: yup.string().required().nullable().label('Company'),
+  projectName: yup.string().required().nullable().label('ชื่อโครงการ'),
   amountGreenhouseGases: yup.number().required().nullable().label('ปริมาณก๊าซเรือนกระจกที่คาดว่าจะลด/ดูดกลับได้'),
   investment: yup.number().required().label('เงินลงทุนทั้งหมดของโครงการ'),
-  startDate: yup.date().required().nullable().label('Borrow Date'),
+  startDate: yup.date().required().nullable().label('วันที่เริ่มต้นโครงการ'),
   endDate: yup
     .date()
     .nullable()
-    .test('Is date greater', "Due date can't be before Borrow Date", (value) => {
+    .test('Is date greater', "วันสิ้นสุดโครงการไม่สามารถอยู่ก่อนวันเริ่มโครงการได้", (value) => {
       if (allowendDateAtCall.value) return true
       return moment(value).isSameOrAfter(values.startDate)
     })
-    .label('Due Date'),
+    .label('วันสิ้นสุดโครงการ'),
 })
 
 const { errors, values, resetForm, setValues, validate, setFieldValue } = useForm({
@@ -249,15 +249,15 @@ let title
 switch (route.name) {
   case 'add-project-carbon':
     mode.value = 'add'
-    title = 'New Project Carbon'
+    title = 'เพิ่มโครงการ'
     break
   case 'edit-project-carbon':
     mode.value = 'edit'
-    title = `Edit Project Carbon`
+    title = `แก้ไขโครงการ`
     break
   case 'view-project-carbon':
     mode.value = 'view'
-    title = `Project Carbon Detail`
+    title = `รายละเอียดโครงการ`
     break
 }
 
