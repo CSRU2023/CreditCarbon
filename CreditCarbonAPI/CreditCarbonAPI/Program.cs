@@ -4,6 +4,7 @@ using CreditCarbonAPI.Repositories;
 using CreditCarbonAPI.Repositories.interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
+var allowCors = "AllowCors";
 
 // Add services to the container.
 
@@ -12,8 +13,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowCors",
         policy =>
         {
-            policy.WithOrigins("http://127.0.0.1:5173",
-            "http://localhost:5173")
+            policy.WithOrigins("http://127.0.0.1:5173")
                    .WithExposedHeaders("x-custom-header");
         });
 });
