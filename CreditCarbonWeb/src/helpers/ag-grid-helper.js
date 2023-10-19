@@ -1,4 +1,6 @@
 import { Tooltip } from "bootstrap";
+import moment from "moment";
+
 const blankFilterOption = {
   displayKey: "blank",
   displayName: "Blank",
@@ -63,10 +65,10 @@ export function createCellButton(text, iconId, tooltip) {
   }
 
   button.style.padding = "8px";
-  button.style.marginBottom = "5px";
+  // button.style.marginBottom = "5px";
 
   return button;
-}
+};
 
 export const textFilterParams = {
   filterOptions: [
@@ -89,3 +91,38 @@ export const textFilterParams = {
   buttons: ["apply", "reset"],
   closeOnApply: true,
 };
+
+export function dateValueFormatter(x) {
+  if (x.value) {
+    return moment(x.value)
+      .format("DD/MM/YYYY")
+      .replace(/\s00:00:00$/, "");
+  }
+  return "";
+};
+
+export function getCurrentAgGridState(gridApi, gridColumnApi) {
+  return {
+    columnState: gridColumnApi.getColumnState(),
+    filterModel: gridApi.getFilterModel(),
+    currentPage: gridApi.paginationGetCurrentPage(),
+  };
+}
+
+export function loadAgGridState(agGridState, gridApi, gridColumnApi) {
+  gridColumnApi.applyColumnState({ state: agGridState.columnState });
+  gridApi.setFilterModel(agGridState.filterModel);
+}
+
+export function getAllRows(gridApi) {
+  const rowData = [];
+
+  gridApi.forEachNode((node) => {
+    rowData.push(node.data);
+  });
+
+  return rowData;
+}
+
+
+
