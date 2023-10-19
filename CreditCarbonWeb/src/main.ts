@@ -10,6 +10,10 @@ import router from './router'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 
+//datepicker
+import "@vuepic/vue-datepicker/dist/main.css";
+import DatePicker from "./components/DatePicker.vue";
+
 //AgGrid
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
@@ -50,6 +54,9 @@ library.add(
 const app = createApp(App)
 app.component("ag-grid-vue", AgGridVue)
 app.component("font-awesome-icon", FontAwesomeIcon)
+
+// eslint-disable-next-line vue/multi-word-component-names
+app.component("date-picker", DatePicker)
 app.use(createPinia())
 app.use(router)
 

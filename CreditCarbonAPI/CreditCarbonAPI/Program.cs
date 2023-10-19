@@ -4,7 +4,6 @@ using CreditCarbonAPI.Repositories;
 using CreditCarbonAPI.Repositories.interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
-var allowCors = "AllowCors";
 
 // Add services to the container.
 
@@ -13,7 +12,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowCors",
         policy =>
         {
-            policy.WithOrigins("http://127.0.0.1:5173")
+            policy.WithOrigins("http://127.0.0.1:5173",
+            "http://localhost:5173")
                    .WithExposedHeaders("x-custom-header");
         });
 });
@@ -22,8 +22,8 @@ builder.Services.AddControllers();
 //builder.Services.AddDbContext<CarbonCreditContext>();
 builder.Services.AddDbContext<CarbonCreditContext>(options =>
 {
-    // options.UseSqlServer("Server=C1001226\\SQLEXPRESS;Database=CarbonCredit;User=sa; Password=1234; TrustServerCertificate=True;Encrypt=False;");
-    options.UseSqlServer("Server=MSI\\MSSQLSERVER2;Database=CarbonCredit;Trusted_Connection=True;TrustServerCertificate=True;"); //Tam
+    options.UseSqlServer("Server=C1001226\\SQLEXPRESS;Database=CarbonCredit;User=sa; Password=1234; TrustServerCertificate=True;Encrypt=False;");
+    // options.UseSqlServer("Server=MSI\\MSSQLSERVER2;Database=CarbonCredit;Trusted_Connection=True;TrustServerCertificate=True;"); //Tam
 });
 
 //AddScoped
