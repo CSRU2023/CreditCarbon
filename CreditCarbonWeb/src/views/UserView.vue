@@ -16,8 +16,7 @@
                   domLayout="autoHeight"
                   :columnDefs="columnDefs"
                   :defaultColDef="defaultColDef"
-                  rowModelType="serverSide"
-                  serverSideStoreType="partial"
+                  :rowData="rowData"
                   :pagination="true"
                   :paginationPageSize="50"
                   :cacheBlockSize="50"
@@ -37,8 +36,9 @@ import { ref } from 'vue'
 import { textFilterParams, activeFilterParams, createCellButton } from '../helpers/ag-grid-helper'
 import http from '../helpers/http-client'
 import Swal from 'sweetalert2'
-let gridColumnApi
-let gridApi
+
+let gridColumnApi;
+let gridApi;
 
 const defaultColDef = {
   resizable: true
@@ -86,7 +86,7 @@ const columnDefs = [
       'text-left': 'true'
     },
     cellRenderer: (param) => {
-      if (param.data.activeFlag) {
+      if (param.data.isActive) {
         const icon = document.getElementById('fa-check-icon').cloneNode(true)
         icon.removeAttribute('id')
         icon.classList.remove('d-none')
@@ -105,7 +105,7 @@ const columnDefs = [
       container.classList.add('align-items-center')
 
       const activeButton = createCellButton()
-      if (param.data.activeFlag == 1) {
+      if (param.data.isActive == 1) {
         activeButton.innerText = 'Set Inactive'
         activeButton.classList.add('btn-outline-warning')
       } else {
@@ -113,6 +113,7 @@ const columnDefs = [
         activeButton.classList.add('btn-outline-success')
       }
       activeButton.style.width = '90px'
+      activeButton.style.marginBottom = '7px'
       activeButton.classList.add('me-2')
       activeButton.addEventListener('click', () => {
         openSetInactive(param.data)
@@ -120,7 +121,7 @@ const columnDefs = [
 
       const deleteButton = createCellButton('', 'fa-trash-icon', 'Delete')
       deleteButton.classList.add('btn-outline-danger')
-      deleteButton.style.marginBottom = '5px'
+      deleteButton.style.marginBottom = '7px'
       deleteButton.addEventListener('click', () => {
         onDelete(param.data.userId)
       })
@@ -135,30 +136,20 @@ const columnDefs = [
   }
 ]
 
+const rowData = []
+
 function onGridReady(params) {
   gridApi = params.api
   gridColumnApi = params.columnApi
 
   // gridColumnApi.getColumn('username').setSort('asc')
 
-  let dataSource = serverSideDatasource()
-  params.api.setServerSideDatasource(dataSource)
+  getUser();
 }
 
-function serverSideDatasource() {
-  return {
-    getRows: async function (params) {
-      const response = await http.get('api/user')
-      params.success({
-        rowData: response.data,
-        rowCount: 1
-      })
-    }
-  }
-}
-
-function refreshData() {
-  gridApi.refreshServerSideStore({ purge: true })
+async function getUser() {
+  const response = await http.get('api/user')
+  gridApi.setRowData(response.data)
 }
 
 function onDelete(userId) {
