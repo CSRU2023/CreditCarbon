@@ -27,7 +27,7 @@ import { RouterView } from 'vue-router'
                 <a class="nav-link" href="/home">ตลาดซื้อขายเครดิตคาร์บอร์น</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/home">รายการเครดิตคาร์บอร์น</a>
+                <a class="nav-link" href="/project-carbon">รายการเครดิตคาร์บอร์น</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/contact">ติดต่อ</a>

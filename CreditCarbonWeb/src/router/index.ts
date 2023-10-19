@@ -5,6 +5,8 @@ import ContactView from '../views/ContactView.vue'
 import EventView from '../views/EventView.vue'
 import MemberView from '../views/MemberView.vue'
 import UserView from '../views/UserView.vue'
+import ProjectCarbonView from '../views/ProjectCarbonView.vue'
+import ProjectCarbonDetail from '../components/ProjectCarbon/ProjectCarbonDetail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,7 +44,33 @@ const router = createRouter({
       path: '/user',
       name: 'user',
       component: UserView
-    }
+    },
+    {
+      path: '/project-carbon',
+      name: 'project-carbon',
+      component: ProjectCarbonView
+    },
+    {
+      path: "/add-project-carbon",
+      name: "add-project-carbon",
+      component: () =>
+      ProjectCarbonDetail,
+      meta: { roles: [] },
+    },
+    {
+      path: "/view-project-carbon/:projectCarbonId",
+      name: "view-project-carbon",
+      component: () =>
+      ProjectCarbonDetail,
+      meta: { roles: [] },
+    },
+    {
+      path: "/edit-project-carbon/:projectCarbonId",
+      name: "edit-project-carbon",
+      component: () =>
+      ProjectCarbonDetail,
+      meta: { roles: [] },
+    },
   ]
 })
 
