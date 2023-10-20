@@ -22,12 +22,6 @@ namespace CreditCarbonAPI.Repositories
             try
             {
                 var p = _projectCarbon.Gets();
-                //var listProjectCarbonMarket = (from a in _carbonCreditEfRepository.Gets()
-                //                               join b in _projectCarbon.Gets() on a.ProjectCarbonId equals b.ProjectCarbonId
-                //                               select new ProjectCarbon
-                //                               {
-                //                                   ProjectName = b.ProjectName
-                //                               });
 
                 var listProjectCarbonMarket = _carbonCreditEfRepository.Gets();
                 return listProjectCarbonMarket;

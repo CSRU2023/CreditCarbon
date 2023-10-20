@@ -7,7 +7,7 @@
                 <div
                   class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
                 >
-                  <h5 class="font-weight-bolder">User</h5>
+                  <h5 class="font-weight-bolder">Carbon Credit Market</h5>
                 </div>
   
                 <div class="flex-grow-1 mb-1">
@@ -18,7 +18,7 @@
                     :defaultColDef="defaultColDef"
                     :rowData="rowData"
                     :pagination="true"
-                    :paginationPageSize="50"
+                    :paginationPageSize="20"
                     :cacheBlockSize="50"
                     @grid-ready="onGridReady"
                   >
@@ -46,94 +46,42 @@
   
   const columnDefs = [
     {
-      headerName: 'UserId',
-      field: 'userId',
+      headerName: 'ProjectName',
+      field: 'projectCarbon.projectName',
       filter: 'agTextColumnFilter',
-      hide: true
+      flex: 2
     },
     {
-      headerName: 'First Name',
-      field: 'firstName',
-      sortable: true,
-      filter: 'agTextColumnFilter',
-      filterParams: textFilterParams,
-      flex: 1
-    },
-    {
-      headerName: 'Last Name',
-      field: 'lastName',
-      sortable: true,
-      filter: 'agTextColumnFilter',
-      filterParams: textFilterParams,
-      flex: 1
-    },
-    {
-      headerName: 'Email',
-      field: 'email',
-      sortable: true,
-      filter: 'agTextColumnFilter',
-      filterParams: textFilterParams,
-      flex: 1
-    },
-    {
-      headerName: 'Active',
-      field: 'isActive',
-      sortable: true,
-      filter: 'agSetColumnFilter',
-      filterParams: activeFilterParams,
-      width: 100,
-      cellClassRules: {
-        'text-left': 'true'
-      },
-      cellRenderer: (param) => {
-        if (param.data.isActive) {
-          const icon = document.getElementById('fa-check-icon').cloneNode(true)
-          icon.removeAttribute('id')
-          icon.classList.remove('d-none')
-          return icon
-        }
-      }
-    },
-    {
-      headerName: '',
+      headerName: 'Type',
       field: '',
-      suppressMenu: true,
-      lockPosition: true,
-      width: 240,
-      cellRenderer: (param) => {
-        const container = document.createElement('div')
-        container.classList.add('align-items-center')
-  
-        const activeButton = createCellButton()
-        if (param.data.isActive == 1) {
-          activeButton.innerText = 'Set Inactive'
-          activeButton.classList.add('btn-outline-warning')
-        } else {
-          activeButton.innerText = 'Set active'
-          activeButton.classList.add('btn-outline-success')
-        }
-        activeButton.style.width = '90px'
-        activeButton.style.marginBottom = '7px'
-        activeButton.classList.add('me-2')
-        activeButton.addEventListener('click', () => {
-          openSetInactive(param.data)
-        })
-  
-        const deleteButton = createCellButton('', 'fa-trash-icon', 'Delete')
-        deleteButton.classList.add('btn-outline-danger')
-        deleteButton.style.marginBottom = '7px'
-        deleteButton.addEventListener('click', () => {
-          onDelete(param.data.userId)
-        })
-  
-        container.appendChild(activeButton)
-        container.appendChild(deleteButton)
-  
-        return container
-      },
-      pinned: 'right',
-      cellClass: ['d-flex', 'justify-content-center']
-    }
+      sortable: true,
+      filter: 'agTextColumnFilter',
+      flex: 2
+    },
+    {
+      headerName: 'Unit',
+      field: 'unitPrice',
+      sortable: true,
+      valueFormatter: formatUnit,
+      filter: 'agTextColumnFilter',
+      flex: 1
+    },
+    {
+      headerName: 'Price',
+      field: 'price',
+      sortable: true,
+      valueFormatter: currencyFormatter,
+      filter: 'agTextColumnFilter',
+      flex: 1
+    },
+    {
+      headerName: 'Detail',
+      // field: 'price',
+      flex: 1,
+      cellRenderer: function(params) {
+        return '<span><i class="bi bi-search"></i></span>'
+     }
+    },
   ]
   
   const rowData = []
@@ -142,49 +90,35 @@
     gridApi = params.api
     gridColumnApi = params.columnApi
   
-    // gridColumnApi.getColumn('username').setSort('asc')
-    getUser();
+    getMarketList();
   }
   
-  async function getUser() {
-    const response = await http.get('api/user')
+  async function getMarketList() {
+    const response = await http.get('api/ProjectCarbonMarkets')
     console.log('data', response.data)
     gridApi.setRowData(response.data)
   }
+
+  function currencyFormatter(params) {
+    return '฿' + formatNumber(params.value);
+  };
+
+  function formatNumber(number) {
+    // this puts commas into the number eg 1000 goes to 1,000,
+    // i pulled this from stack overflow, i have no idea how it works
+    return Math.floor(number)
+      .toString()
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  };
+
+  function formatUnit(number) {
+    // this puts commas into the number eg 1000 goes to 1,000,
+    // i pulled this from stack overflow, i have no idea how it works
+    return Math.floor(number.value)
+      .toString()
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  };
   
-  function onDelete(userId) {
-    Swal.fire({
-      title: 'Deleting User',
-      text: 'Are you sure you want to delete this User?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirm'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await http.delete('/users/delete/' + userId)
-        refreshData()
-      }
-    })
-  }
   
-  function openSetInactive(data) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: `Please confirm to change User status to '${data.activeFlag ? 'Inactive' : 'Active'}'`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirm'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        data.activeFlag = !data.activeFlag
-        await http.put('/users/update/' + data.userId, data)
-        refreshData()
-      }
-    })
-  }
   </script>
   
