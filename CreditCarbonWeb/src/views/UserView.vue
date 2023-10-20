@@ -8,6 +8,15 @@
                 class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
               >
                 <h5 class="font-weight-bolder">User</h5>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                      <button
+                        type="button"
+                        class="btn btn-info me-1"
+                        @click="showUserAdd()">
+                        <font-awesome-icon icon="fa-solid fa-plus" /> Add
+                      </button>
+                      <UserAdd ref="userAdd" @refresh="refreshData" />
+                    </div>
               </div>
 
               <div class="flex-grow-1 mb-1">
@@ -36,9 +45,15 @@ import { ref } from 'vue'
 import { textFilterParams, activeFilterParams, createCellButton } from '../helpers/ag-grid-helper'
 import http from '../helpers/http-client'
 import Swal from 'sweetalert2'
+import UserAdd from "../components/User/UserAdd.vue";
 
+const userAdd = ref(null);
 let gridColumnApi;
 let gridApi;
+
+function showUserAdd() {
+  userAdd.value.openModal();
+}
 
 const defaultColDef = {
   resizable: true
