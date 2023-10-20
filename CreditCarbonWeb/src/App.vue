@@ -24,7 +24,7 @@ import { RouterView } from 'vue-router'
                 <a class="nav-link" href="/about">เกี่ยวกับ</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/home">ตลาดซื้อขายเครดิตคาร์บอร์น</a>
+                <a class="nav-link" href="/market">ตลาดซื้อขายเครดิตคาร์บอร์น</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/project-carbon">รายการเครดิตคาร์บอร์น</a>
@@ -71,4 +71,5 @@ import { RouterView } from 'vue-router'
   <font-awesome-icon id="fa-trash-icon" icon="fa-solid fa-trash-can" class="d-none" />
   <font-awesome-icon id="fa-pen-to-square-icon" icon="fa-solid fa-pen-to-square" class="d-none" />
   <font-awesome-icon id="fa-eye-icon" icon="fa-solid fa-eye" class="d-none" />
+  <font-awesome-icon id="fa-file-icon" icon="fa-solid fa-file" class="d-none" />
 </template>

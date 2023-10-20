@@ -34,6 +34,7 @@ import {
   faEye,
   faFileLines,
   faPlus,
+  faFile
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -47,7 +48,8 @@ library.add(
   faPenToSquare,
   faEye,
   faFileLines,
-  faPlus
+  faPlus,
+  faFile
   );
 
 

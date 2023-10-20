@@ -21,6 +21,8 @@
                     :paginationPageSize="20"
                     :cacheBlockSize="50"
                     @grid-ready="onGridReady"
+                    @rowClicked="onRowClicked"
+                    
                   >
                   </ag-grid-vue>
                 </div>
@@ -29,6 +31,7 @@
           </div>
         </div>
       </div>
+      <MarketDetail ref="marketDetail" />
   </template>
   
   <script setup>
@@ -36,30 +39,35 @@
   import { textFilterParams, activeFilterParams, createCellButton } from '../helpers/ag-grid-helper'
   import http from '../helpers/http-client'
   import Swal from 'sweetalert2'
+  import MarketDetail from "../components/Market/MarketDetail.vue";
   
   let gridColumnApi;
   let gridApi;
+
+  const marketDetail = ref(null);
   
   const defaultColDef = {
     resizable: true
   }
+
+  
   
   const columnDefs = [
     {
-      headerName: 'ProjectName',
+      headerName: 'ชื่อโครงการ',
       field: 'projectCarbon.projectName',
       filter: 'agTextColumnFilter',
       flex: 2
     },
     {
-      headerName: 'Type',
+      headerName: 'ประเภท',
       field: '',
       sortable: true,
       filter: 'agTextColumnFilter',
       flex: 2
     },
     {
-      headerName: 'Unit',
+      headerName: 'ปริมารคาร์บอนเครดิต',
       field: 'unitPrice',
       sortable: true,
       valueFormatter: formatUnit,
@@ -67,7 +75,7 @@
       flex: 1
     },
     {
-      headerName: 'Price',
+      headerName: 'ราคา/หน่วย',
       field: 'price',
       sortable: true,
       valueFormatter: currencyFormatter,
@@ -75,12 +83,22 @@
       flex: 1
     },
     {
-      headerName: 'Detail',
+      headerName: 'รายละเอียด',
       // field: 'price',
-      flex: 1,
-      cellRenderer: function(params) {
-        return '<span><i class="bi bi-search"></i></span>'
-     }
+      flex: 0.5,
+      cellRenderer: (params) => {
+        const container = document.createElement("div");
+        container.classList.add("d-flex", "justify-content-center");
+
+        const viewButton = createCellButton("", "fa-file-icon", "View");
+        viewButton.addEventListener("click", () => {
+          ShowDetail(params.data.projectCarbonId);
+        });
+
+        container.appendChild(viewButton);
+
+        return container;
+      },
     },
   ]
   
@@ -104,21 +122,28 @@
   };
 
   function formatNumber(number) {
-    // this puts commas into the number eg 1000 goes to 1,000,
-    // i pulled this from stack overflow, i have no idea how it works
     return Math.floor(number)
       .toString()
       .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   };
 
   function formatUnit(number) {
-    // this puts commas into the number eg 1000 goes to 1,000,
-    // i pulled this from stack overflow, i have no idea how it works
     return Math.floor(number.value)
       .toString()
       .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   };
+
+  function onRowClicked() {
+    console.log('22')
+    window.localStorage.setItem('userId', '1234')
+    console.log(window.localStorage.getItem('userId'))
+    window.localStorage.removeItem('CART')
+  }
   
+  function ShowDetail(data) {
+    console.log('id', data)
+    marketDetail.value.openModal();
+  }
   
   </script>
   
