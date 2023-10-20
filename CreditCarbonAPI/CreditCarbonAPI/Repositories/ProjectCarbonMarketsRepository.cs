@@ -8,15 +8,21 @@ namespace CreditCarbonAPI.Repositories
     public class ProjectCarbonMarketsRepository : IProjectCarbonMarketsRepository
     {
         private ICarbonCreditEfRepository<ProjectCarbonMarket> _carbonCreditEfRepository;
+        private ICarbonCreditEfRepository<ProjectCarbon> _projectCarbon;
 
-        public ProjectCarbonMarketsRepository(ICarbonCreditEfRepository<ProjectCarbonMarket> carbonCreditEfRepository){
+        public ProjectCarbonMarketsRepository(ICarbonCreditEfRepository<ProjectCarbonMarket> carbonCreditEfRepository, 
+                                                ICarbonCreditEfRepository<ProjectCarbon> projectCarbon)
+        {
             _carbonCreditEfRepository = carbonCreditEfRepository;
+            _projectCarbon = projectCarbon;
         }
 
         public IEnumerable<ProjectCarbonMarket> Gets()
         {
             try
             {
+                var p = _projectCarbon.Gets();
+
                 var listProjectCarbonMarket = _carbonCreditEfRepository.Gets();
                 return listProjectCarbonMarket;
             }
