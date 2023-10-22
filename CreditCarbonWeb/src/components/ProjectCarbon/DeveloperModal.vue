@@ -3,18 +3,18 @@ import { Field, useForm, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import { ref, getCurrentInstance } from "vue";
 import { computed } from "vue";
-import ModalInterestRate from "../Modal.vue";
+import ModalDeveloper from "../Modal.vue";
 import moment from "moment";
 
 const mode = ref("add");
-const modalInterestRate = ref(null);
+const modalDeveloper = ref(null);
 const { emit } = getCurrentInstance();
 const loading = ref(false);
 
-let dataInterestRate = {};
+let dataDeveloper = {};
 let tempId = 0;
 
-let titleInterestRate = computed(() => {
+let titleDeveloper = computed(() => {
   switch (mode.value) {
     case "add":
       return "New Interest Rate";
@@ -28,8 +28,6 @@ let titleInterestRate = computed(() => {
 });
 
 const validationSchema = yup.object({
-  interestRate: yup.number().nullable().required().label("Interest Rate(%)"),
-  margin: yup.number().nullable().required().label("Margin(%) is required."),
   effectiveFrom: yup
     .date()
     .required()
@@ -41,32 +39,33 @@ const { resetForm, setValues, values, errors, validate } = useForm({
   validationSchema: validationSchema,
 });
 
-async function openModalInterestRate(modalMode, data) {
+async function openModalDeveloper(modalMode, data) {
+  console.log("openModalDeveloper",modalMode)
   loading.value = false;
   mode.value = modalMode;
-  dataInterestRate = data;
+  dataDeveloper = data;
 
-  initModalInterestRate();
+  //initModalDeveloper();
 
-  modalInterestRate.value.show();
+  modalDeveloper.value.show();
 }
 
-function initModalInterestRate() {
+function initModalDeveloper() {
   resetForm();
 
   if (mode.value !== "add") {
-    loadDataInterestRate();
+    loadDataDeveloper();
   } else {
     tempId--;
   }
 }
 
-function loadDataInterestRate() {
-  const data = dataInterestRate;
+function loadDataDeveloper() {
+  const data = dataDeveloper;
   setValues(data);
 }
 
-async function onSubmitInterestRate() {
+async function onSubmitDeveloper() {
   const { valid } = await validate();
 
   if (!valid) {
@@ -78,39 +77,39 @@ async function onSubmitInterestRate() {
   values.effectiveFrom = moment(values.effectiveFrom).format("YYYY-MM-DD");
 
   if (mode.value == "add") {
-    emit("insertInterestRate", { ...values, id: tempId });
+    emit("insertDeveloper", { ...values, id: tempId });
   } else if (mode.value == "edit") {
-    emit("updateInterestRate", { ...values });
+    emit("updateDeveloper", { ...values });
   }
 
-  modalInterestRate.value.hide();
+  modalDeveloper.value.hide();
   loading.value = false;
 }
 
 function onChange() {
-  if (values.interestRate !== undefined) {
+  if (values.developer !== undefined) {
     values.allInRate =
       values.margin !== undefined
-        ? parseFloat(values.interestRate) + parseFloat(values.margin)
-        : values.interestRate;
+        ? parseFloat(values.developer) + parseFloat(values.margin)
+        : values.developer;
   } else {
     values.allInRate = values.margin;
   }
 }
 
 defineExpose({
-  openModalInterestRate,
+  openModalDeveloper,
 });
 </script>
 
 <template>
-  <ModalInterestRate ref="modalInterestRate" :id-modal="'modalInterest'">
-    <template #title>{{ titleInterestRate }}</template>
+  <ModalDeveloper ref="modalDeveloper" :id-modal="'modalDeveloper'">
+    <template #title>{{ titleDeveloper }}</template>
 
     <template #body>
       <form
-        @submit.prevent="onSubmitInterestRate"
-        id="formInterestRate"
+        @submit.prevent="onSubmitDeveloper"
+        id="formDeveloper"
         autocomplete="off">
         <fieldset :disabled="loading">
           <div class="mb-3" hidden>
@@ -139,18 +138,18 @@ defineExpose({
       <button
         type="button"
         class="btn btn-secondary"
-        @click="modalInterestRate.hide"
+        @click="modalDeveloper.hide"
         :disabled="loading">
         Close
       </button>
       <button
-        type="onSubmitInterestRate"
-        form="formInterestRate"
+        type="onSubmitDeveloper"
+        form="formDeveloper"
         class="btn btn-primary"
         :disabled="loading">
         <div v-show="loading" class="spinner-border spinner-border-sm"></div>
         Save
       </button>
     </template>
-  </ModalInterestRate>
+  </ModalDeveloper>
 </template>
