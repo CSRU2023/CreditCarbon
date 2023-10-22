@@ -13,13 +13,21 @@ public partial class CarbonCreditContext : DbContext
 
     public virtual DbSet<ProjectCarbon> ProjectCarbons { get; set; }
 
+    public virtual DbSet<ProjectCarbonDeveloper> ProjectCarbonDevelopers { get; set; }
+
     public virtual DbSet<ProjectCarbonMarket> ProjectCarbonMarkets { get; set; }
+
+    public virtual DbSet<ProjectCarbonStatus> ProjectCarbonStatuses { get; set; }
+
+    public virtual DbSet<ProjectCarbonTransaction> ProjectCarbonTransactions { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<Status> Statuses { get; set; }
 
     public virtual DbSet<TechnologyType> TechnologyTypes { get; set; }
+
+    public virtual DbSet<TransactionType> TransactionTypes { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
@@ -36,7 +44,6 @@ public partial class CarbonCreditContext : DbContext
             entity.Property(e => e.Address).HasMaxLength(255);
             entity.Property(e => e.Coordinator).HasMaxLength(255);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Developer).HasMaxLength(255);
             entity.Property(e => e.Email).HasMaxLength(255);
             entity.Property(e => e.EndDate).HasColumnType("datetime");
             entity.Property(e => e.Location).HasMaxLength(255);
@@ -44,6 +51,7 @@ public partial class CarbonCreditContext : DbContext
             entity.Property(e => e.Position).HasMaxLength(255);
             entity.Property(e => e.ProjectDescription).HasMaxLength(255);
             entity.Property(e => e.ProjectName).HasMaxLength(255);
+            entity.Property(e => e.ProjectOwner).HasMaxLength(255);
             entity.Property(e => e.StartDate).HasColumnType("datetime");
             entity.Property(e => e.Tel).HasMaxLength(255);
             entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
@@ -59,6 +67,27 @@ public partial class CarbonCreditContext : DbContext
                 .HasConstraintName("FK_ProjectCarbon_User");
         });
 
+        modelBuilder.Entity<ProjectCarbonDeveloper>(entity =>
+        {
+            entity.ToTable("ProjectCarbon_Developer");
+
+            entity.Property(e => e.ProjectCarbonDeveloperId)
+                .ValueGeneratedNever()
+                .HasColumnName("ProjectCarbon_DeveloperId");
+            entity.Property(e => e.Address).HasMaxLength(250);
+            entity.Property(e => e.Coordinator).HasMaxLength(100);
+            entity.Property(e => e.Developer).HasMaxLength(100);
+            entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.Position).HasMaxLength(50);
+            entity.Property(e => e.ProjectCarbonId).ValueGeneratedOnAdd();
+            entity.Property(e => e.Tel).HasMaxLength(10);
+
+            entity.HasOne(d => d.ProjectCarbon).WithMany(p => p.ProjectCarbonDevelopers)
+                .HasForeignKey(d => d.ProjectCarbonId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProjectCarbon_Developer_ProjectCarbon");
+        });
+
         modelBuilder.Entity<ProjectCarbonMarket>(entity =>
         {
             entity.HasKey(e => e.ProjectCarbonMarketsId).HasName("PK_CarbonMarkets");
@@ -70,6 +99,49 @@ public partial class CarbonCreditContext : DbContext
                 .HasForeignKey(d => d.ProjectCarbonId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ProjectCarbonMarkets_ProjectCarbon");
+        });
+
+        modelBuilder.Entity<ProjectCarbonStatus>(entity =>
+        {
+            entity.ToTable("ProjectCarbon_Status");
+
+            entity.Property(e => e.ProjectCarbonStatusId)
+                .ValueGeneratedNever()
+                .HasColumnName("ProjectCarbon_StatusId");
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Massage).HasMaxLength(100);
+
+            entity.HasOne(d => d.ProjectCarbon).WithMany(p => p.ProjectCarbonStatuses)
+                .HasForeignKey(d => d.ProjectCarbonId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProjectCarbon_Status_ProjectCarbon");
+
+            entity.HasOne(d => d.Status).WithMany(p => p.ProjectCarbonStatuses)
+                .HasForeignKey(d => d.StatusId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProjectCarbon_Status_Status");
+        });
+
+        modelBuilder.Entity<ProjectCarbonTransaction>(entity =>
+        {
+            entity.ToTable("ProjectCarbon_Transaction");
+
+            entity.Property(e => e.ProjectCarbonTransactionId)
+                .ValueGeneratedNever()
+                .HasColumnName("ProjectCarbon_TransactionId");
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Massage).HasMaxLength(100);
+            entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
+
+            entity.HasOne(d => d.ProjectCarbon).WithMany(p => p.ProjectCarbonTransactions)
+                .HasForeignKey(d => d.ProjectCarbonId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProjectCarbon_Transaction_ProjectCarbon");
+
+            entity.HasOne(d => d.TransactionType).WithMany(p => p.ProjectCarbonTransactions)
+                .HasForeignKey(d => d.TransactionTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProjectCarbon_Transaction_TransactionType");
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -101,6 +173,15 @@ public partial class CarbonCreditContext : DbContext
             entity.Property(e => e.Description).HasMaxLength(255);
             entity.Property(e => e.TechnologyTypeCode).HasMaxLength(50);
             entity.Property(e => e.TechnologyTypeName).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<TransactionType>(entity =>
+        {
+            entity.ToTable("TransactionType");
+
+            entity.Property(e => e.Description).HasMaxLength(255);
+            entity.Property(e => e.TransactionTypeCode).HasMaxLength(50);
+            entity.Property(e => e.TransactionTypeName).HasMaxLength(100);
         });
 
         modelBuilder.Entity<User>(entity =>

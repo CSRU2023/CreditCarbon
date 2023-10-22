@@ -27,7 +27,7 @@ public partial class ProjectCarbon
 
     public DateTime EndDate { get; set; }
 
-    public string Developer { get; set; }
+    public string ProjectOwner { get; set; }
 
     public string Coordinator { get; set; }
 
@@ -47,7 +47,13 @@ public partial class ProjectCarbon
 
     public int UpdatedByUserId { get; set; }
 
+    public virtual ICollection<ProjectCarbonDeveloper> ProjectCarbonDevelopers { get; set; } = new List<ProjectCarbonDeveloper>();
+
     public virtual ICollection<ProjectCarbonMarket> ProjectCarbonMarkets { get; set; } = new List<ProjectCarbonMarket>();
+
+    public virtual ICollection<ProjectCarbonStatus> ProjectCarbonStatuses { get; set; } = new List<ProjectCarbonStatus>();
+
+    public virtual ICollection<ProjectCarbonTransaction> ProjectCarbonTransactions { get; set; } = new List<ProjectCarbonTransaction>();
 
     public virtual TechnologyType TechnologyType { get; set; }
 
