@@ -16,7 +16,7 @@ import { h } from 'vue';
               <!-- <h4><p class="my-10">บุคคลทั่วไป </p></h4> -->
               
               <img src="@/assets/img/hu.png" class="img-fluid rounded" />
-              <a class="nav-link" href="/about"> <h1>บุคคลทั่วไป</h1> </a>
+              <a class="nav-link" href="/regis"> <h1>บุคคลทั่วไป</h1> </a>
             </div>
             <div class="col mt-1" >
           

@@ -9,6 +9,8 @@ import ProjectCarbonView from '../views/ProjectCarbonView.vue'
 import ProjectCarbonDetail from '../components/ProjectCarbon/ProjectCarbonDetail.vue'
 import MarketViewVue from '@/views/MarketView.vue'
 
+import RegisPerson from '../components/ProjectCarbon/RegisPerson.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -76,6 +78,13 @@ const router = createRouter({
       path: '/market',
       name: 'market',
       component: MarketViewVue
+    },
+    {
+      path: "/regis",
+      name: "resis",
+      component: () =>
+      RegisPerson,
+      meta: { roles: [] },
     },
   ]
 })
