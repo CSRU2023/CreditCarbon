@@ -1,6 +1,6 @@
 <template>
     <Modal ref="modal">
-      <template #title>Add User</template>
+      <template #title>Project Detail</template>
   
       <template #body>
         <form
@@ -10,7 +10,7 @@
           <fieldset :disabled="loading">
             <div class="mb-3">
               <label for="dp-input-effectiveFrom" class="form-label"
-                >Test</label
+                >Project Detail</label
               >
               <span class="text-danger"> *</span>
               <Field type="text" class="form-control" id="projectName" name="projectName"/>
@@ -42,13 +42,17 @@
   import { ref } from 'vue'
   import Modal from '../Modal.vue'
   import { Field } from 'vee-validate'
+  import http from '/src/helpers/http-client'
+
   
   const modal = ref(null)
   const loading = ref(false)
   
-  function openModal() {
+  async function openModal(data) {
     loading.value = false
     modal.value.show()
+    const response = await http.get('api/ProjectCarbon/GetById',{ params: {id : data}})
+    console.log('dataShow', response.data)
   }
   
   defineExpose({

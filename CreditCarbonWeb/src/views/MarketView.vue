@@ -18,7 +18,7 @@
                     :defaultColDef="defaultColDef"
                     :rowData="rowData"
                     :pagination="true"
-                    :paginationPageSize="20"
+                    :paginationPageSize="10"
                     :cacheBlockSize="50"
                     @grid-ready="onGridReady"
                     @rowClicked="onRowClicked"
@@ -50,8 +50,7 @@
     resizable: true
   }
 
-  
-  
+
   const columnDefs = [
     {
       headerName: 'ชื่อโครงการ',
@@ -113,7 +112,6 @@
   
   async function getMarketList() {
     const response = await http.get('api/ProjectCarbonMarkets')
-    console.log('data', response.data)
     gridApi.setRowData(response.data)
   }
 
@@ -141,8 +139,7 @@
   }
   
   function ShowDetail(data) {
-    console.log('id', data)
-    marketDetail.value.openModal();
+    marketDetail.value.openModal(data);
   }
   
   </script>
