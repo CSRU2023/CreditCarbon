@@ -38,6 +38,14 @@ namespace CreditCarbonAPI.Controllers
             return Ok(listTechnologyType);
         }
 
+        [HttpGet("GetById")]
+        public IActionResult GetProjectCarbonById(int id)
+        {
+            var result = _projectCarbonRepository.GetProjectCarbonById(id);
+
+            return Ok(result);
+        }
+
     }
 
 }
