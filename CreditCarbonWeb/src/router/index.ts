@@ -86,6 +86,13 @@ const router = createRouter({
       RegisPerson,
       meta: { roles: [] },
     },
+    {
+      path: "/regis/:id",
+      name: "regis",
+      component: () =>
+      RegisPerson,
+      meta: { roles: [] },
+    }
   ]
 })
 
