@@ -24,7 +24,7 @@ import { RouterView } from 'vue-router'
                 <a class="nav-link" href="/about">เกี่ยวกับ</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/home">ตลาดซื้อขายเครดิตคาร์บอร์น</a>
+                <a class="nav-link" href="/market">ตลาดซื้อขายเครดิตคาร์บอร์น</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/project-carbon">รายการเครดิตคาร์บอร์น</a>
@@ -44,21 +44,22 @@ import { RouterView } from 'vue-router'
           <div class="btn-group me-2">
                 <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
                   data-bs-display="static" aria-expanded="false">
-                  <font-awesome-icon icon="fa-solid fa-user" /> Name
+                  <font-awesome-icon icon="fa-solid fa-user" /> (ชื่อ)
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                  <li><a class="dropdown-item" href="#">ข้อมูลส่วนตัว</a></li>
+                  <li><a class="dropdown-item" href="#">กระเป๋า</a></li>
                   <li><a class="dropdown-item" href="User">User</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
-                  <li><a class="dropdown-item" href="#">Logout</a></li>
+                  <li><a class="dropdown-item" href="#">ออกจากระบบ</a></li>
                 </ul>
               </div>
           <a class="btn btn-outline-dark me-2" type="submit" href="/login">
-            <font-awesome-icon icon="fa-solid fa-user" /> Login</a>
+            <font-awesome-icon icon="fa-solid fa-user" /> เข้าสู่ระบบ</a>
           <a class="btn btn-outline-info" type="submit" href="/member">
-            <font-awesome-icon icon="fa-solid fa-user" /> Register</a>
+            <font-awesome-icon icon="fa-solid fa-user" /> ลงทะเบียน</a>
         </div>
       </nav>
       <nav class="navbar navbar-expand-lg navbar-light container">
@@ -71,4 +72,5 @@ import { RouterView } from 'vue-router'
   <font-awesome-icon id="fa-trash-icon" icon="fa-solid fa-trash-can" class="d-none" />
   <font-awesome-icon id="fa-pen-to-square-icon" icon="fa-solid fa-pen-to-square" class="d-none" />
   <font-awesome-icon id="fa-eye-icon" icon="fa-solid fa-eye" class="d-none" />
+  <font-awesome-icon id="fa-file-icon" icon="fa-solid fa-file" class="d-none" />
 </template>

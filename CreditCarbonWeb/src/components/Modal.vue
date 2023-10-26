@@ -20,6 +20,7 @@ onMounted(() => {
 });
 
 function show() {
+  console.log("show",props)
   thisModal.show();
 }
 

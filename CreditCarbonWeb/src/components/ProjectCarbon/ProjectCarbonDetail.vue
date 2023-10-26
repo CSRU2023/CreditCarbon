@@ -5,7 +5,7 @@
     >
       <h1 class="h2">
         {{ title }}
-        <span v-if="loanPaymentNo" class="text">({{ loanPaymentNo }})</span>
+        <!-- <span v-if="loanPaymentNo" class="text">({{ loanPaymentNo }})</span> -->
       </h1>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div v-show="loading" class="spinner-border spinner-border m-1 text-secondary"></div>
@@ -48,15 +48,26 @@
               <ErrorMessage class="invalid-feedback" name="amountGreenhouseGases" />
             </div>
             <div class="col-6 mb-2">
-              <label for="dp-input-createdDate" class="form-label">Created Date</label>
+              <label for="technologyTypeId" class="form-label"
+                >ประเภทโครงการ </label
+              >
+              <combobox
+                inputId="technologyTypeId"
+                name="technologyTypeId"
+                class="form-control"
+                :options="technologyTypes"
+                :reduce="(option) => option.technologyTypeId">
+              </combobox>
+
+            </div>
+            <div class="col-6 mb-2">
+              <label for="dp-input-createdDate" class="form-label">วันที่ขึ้นทะเบียน</label>
               <date-picker
                 class="form-control"
                 uid="createdDate"
                 name="createdDate"
-                :class="{ 'is-invalid': errors.createdDate }"
                 :disabled="true"
               />
-              <ErrorMessage class="invalid-feedback" name="createdDate" />
             </div>
             <div class="row">
               <label class="form-label">ระยะเวลาคิดคาร์บอนเครดิตของโครงการ<br></label>
@@ -81,61 +92,38 @@
                   class="form-control"
                   uid="endDate"
                   name="endDate"
-                  :disabled="endDateDisable || mode === 'view'"
+                  :disabled="mode === 'view'"
                   :class="{ 'is-invalid': errors.endDate }"
                 />
                 <ErrorMessage class="invalid-feedback" name="endDate" />
               </div>
-              <div class="col-6 mb-2" style="margin-top: 40px" :hidden="!allowendDateAtCall">
-                <Field
-                  v-slot="{ field }"
-                  name="endDateAtCall"
-                  id="endDateAtCall"
-                  type="checkbox"
-                  :value="false"
-                >
-                  <label>
-                    <input
-                      type="checkbox"
-                      name="endDateAtCall"
-                      id="endDateAtCall"
-                      v-bind="field"
-                      :value="false"
-                      :checked="endDateAtCall"
-                      @change="onChangeAtCall($event)"
-                    />
-                    Call
-                  </label>
-                </Field>
-              </div>
             </div>
             <div class="col-12 mb-2">
-              <label for="projectName" class="form-label">รายละเอียดโครงการ <span class="text-danger">*</span></label>
-              <Field type="text" class="form-control" id="projectName" name="projectName" />
-              <ErrorMessage class="invalid-feedback" name="projectName" />
+              <label for="ProjectDescription" class="form-label">รายละเอียดโครงการ</label>
+              <Field type="text" class="form-control" id="ProjectDescription" name="ProjectDescription" />
             </div>
           </div>
           <div class="row mb-3 pb-3 border-bottom">
             <label class="form-label h5 mb-3">รายละเอียดเจ้าของโครงการ</label>
             <div class="col-12 mb-2">
-              <label for="projectName" class="form-label">เจ้าของโครงการ <span class="text-danger">*</span></label>
-              <Field type="text" class="form-control" id="projectName" name="projectName" />
-              <ErrorMessage class="invalid-feedback" name="projectName" />
+              <label for="projectOwner" class="form-label">เจ้าของโครงการ <span class="text-danger">*</span></label>
+              <Field type="text" class="form-control" id="projectOwner" name="projectOwner" />
+              <ErrorMessage class="invalid-feedback" name="projectOwner" />
             </div>
             <div class="col-6 mb-2">
-              <label for="location" class="form-label">ผู้ประสานงาน <span class="text-danger">*</span></label>
-              <Field type="text" class="form-control" id="location" name="location" />
-              <ErrorMessage class="invalid-feedback" name="location" />
+              <label for="coordinator" class="form-label">ผู้ประสานงาน <span class="text-danger">*</span></label>
+              <Field type="text" class="form-control" id="coordinator" name="coordinator" />
+              <ErrorMessage class="invalid-feedback" name="coordinator" />
             </div>
             <div class="col-6 mb-2">
-              <label for="locationCoordinates" class="form-label">ตำแหน่ง</label>
-              <Field type="text" class="form-control" id="locationCoordinates" name="locationCoordinates" />
-              <ErrorMessage class="invalid-feedback" name="locationCoordinates" />
+              <label for="position" class="form-label">ตำแหน่ง</label>
+              <Field type="text" class="form-control" id="position" name="position" />
+              <ErrorMessage class="invalid-feedback" name="position" />
             </div>
             <div class="col-12 mb-2">
-              <label for="investment" class="form-label">ที่อยู่ <span class="text-danger">*</span></label>
-              <Field type="text" class="form-control" id="investment" name="investment" />
-              <ErrorMessage class="invalid-feedback" name="investment" />
+              <label for="address" class="form-label">ที่อยู่ <span class="text-danger">*</span></label>
+              <Field type="text" class="form-control" id="address" name="address" />
+              <ErrorMessage class="invalid-feedback" name="address" />
             </div>
             <div class="col-6 mb-2">
               <label for="tel" class="form-label">โทรศัพท์ <span class="text-danger">*</span></label>
@@ -156,14 +144,14 @@
               <button
                 type="button"
                 class="btn btn-outline-primary btn-sm"
-                @click="showInterestRate('add')"
+                @click="showDeveloper('add')"
               >
-                <font-awesome-icon icon="fa-solid fa-plus" /> Add
+                <font-awesome-icon icon="fa-solid fa-plus" /> เพิ่ม
               </button>
-              <InterestRateModal
-                ref="interestRateModal"
-                @insertInterestRate="onInsertInterestRate"
-                @updateInterestRate="onUpdateInterestRate"
+              <DeveloperModal
+                ref="developerModal"
+                @insertDeveloper="onInsertDeveloper"
+                @updateDeveloper="onUpdateDeveloper"
               />
             </div>
           </div>
@@ -171,11 +159,11 @@
           <ag-grid-vue
             class="ag-theme-alpine pb-3 mb-3 border-bottom"
             domLayout="autoHeight"
-            :columnDefs="interestRateColumnDefs"
-            :rowData="interestRateRowData"
+            :columnDefs="developerColumnDefs"
+            :rowData="developerRowData"
             :defaultColDef="defaultColDef"
             :getRowNodeId="getRowNodeId"
-            @grid-ready="onInterestRateGridReady"
+            @grid-ready="onDeveloperGridReady"
           >
           </ag-grid-vue>
         </fieldset>
@@ -187,9 +175,11 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { createCellButton, dateValueFormatter } from '../../helpers/ag-grid-helper'
+import { 
+  createCellButton, 
+  textFilterParams  } from '../../helpers/ag-grid-helper'
 import { Field, useForm, ErrorMessage } from 'vee-validate'
-import InterestRateModal from './DeveloperModal.vue'
+import DeveloperModal from './DeveloperModal.vue'
 import http from '../../helpers/http-client'
 import * as yup from 'yup'
 import moment from 'moment'
@@ -198,29 +188,12 @@ import Swal from 'sweetalert2'
 const router = useRouter()
 const route = useRoute()
 
-const interestRateModal = ref(null)
+const developerModal = ref(null)
 
-const loanTypes = ref([])
-const currency = ref([])
-const currencies = ref([])
-const baseRate = ref([])
-
-const allowendDateAtCall = ref(false)
-const endDateDisable = ref(false)
-const endDateAtCall = ref(false)
-const allowCustomBaseRate = ref(false)
-const customBaseRate = ref(null)
-const customBank = ref(null)
-const loanPaymentNo = ref('')
-const currencyCode = ref(null)
-const exchangeRateLastMonth = ref(null)
-
-const deletedInterestIds = []
+const technologyTypes = ref([])
 
 const dataLP = ref({})
 const loading = ref(false)
-let statusSetLoanPayment = false
-let parentLoanPaymentId
 
 const validationSchema = yup.object({
   projectName: yup.string().required().nullable().label('ชื่อโครงการ'),
@@ -231,7 +204,7 @@ const validationSchema = yup.object({
     .date()
     .nullable()
     .test('Is date greater', "วันสิ้นสุดโครงการไม่สามารถอยู่ก่อนวันเริ่มโครงการได้", (value) => {
-      if (allowendDateAtCall.value) return true
+      console.log(values.startDate)
       return moment(value).isSameOrAfter(values.startDate)
     })
     .label('วันสิ้นสุดโครงการ'),
@@ -270,40 +243,51 @@ const defaultColDef = {
 
 loadDataDefault()
 
-const interestRateColumnDefs = [
+const developerColumnDefs = [
   {
-    headerName: 'Interest Rate (%)',
-    field: 'interestRate',
+    headerName: 'ผู้พัฒนาโครงการ',
+    field: 'developer',
     flex: 1,
     sortable: true,
-    filter: 'agNumberColumnFilter'
+    filter: "agTextColumnFilter",
+    filterParams: textFilterParams,
   },
   {
-    headerName: 'Margin (%)',
-    field: 'margin',
+    headerName: 'ผู้ประสานงาน',
+    field: 'coordinator',
     flex: 1,
     sortable: true,
-    filter: 'agNumberColumnFilter'
+    filter: "agTextColumnFilter",
+    filterParams: textFilterParams,
   },
   {
-    headerName: 'All in RATE',
-    field: 'allInRate',
+    headerName: 'ตำแหน่ง',
+    field: 'position',
     flex: 1,
     sortable: true,
-    filter: 'agNumberColumnFilter'
+    filter: "agTextColumnFilter",
+    filterParams: textFilterParams,
   },
   {
-    headerName: 'Effective from',
-    field: 'effectiveFrom',
+    headerName: 'เบอร์โทร',
+    field: 'tel',
     flex: 1,
     sortable: true,
-    filter: 'agDateColumnFilter',
-    valueFormatter: dateValueFormatter
+    filter: "agTextColumnFilter",
+    filterParams: textFilterParams,
+  },
+  {
+    headerName: 'E-mail',
+    field: 'email',
+    flex: 1,
+    sortable: true,
+    filter: "agTextColumnFilter",
+    filterParams: textFilterParams,
   }
 ]
 
 if (mode.value !== 'view') {
-  interestRateColumnDefs.push({
+  developerColumnDefs.push({
     headerName: '',
     field: '',
     suppressMenu: true,
@@ -316,13 +300,13 @@ if (mode.value !== 'view') {
       const editButton = createCellButton('Edit')
       editButton.classList.add('btn-outline-primary', 'me-1')
       editButton.addEventListener('click', () => {
-        showInterestRate('edit', params.data)
+        showDeveloper('edit', params.data)
       })
 
       const deleteButton = createCellButton('Delete')
       deleteButton.classList.add('btn-outline-danger')
       deleteButton.addEventListener('click', () => {
-        onDeleteInterestRate(params.data)
+        onDeleteDeveloper(params.data)
       })
 
       container.appendChild(editButton)
@@ -335,8 +319,8 @@ if (mode.value !== 'view') {
   })
 }
 
-const interestRateRowData = ref([])
-let interestRateGridApi
+const developerRowData = ref([])
+let developerGridApi
 
 function getRowNodeId(data) {
   return data.id
@@ -346,20 +330,6 @@ async function onSubmit() {
   const { valid } = await validate()
 
   if (!valid) {
-    return
-  }
-
-  values.endDateAtCall = values.endDateAtCall === undefined ? false : values.endDateAtCall
-  if (allowendDateAtCall.value && !values.endDateAtCall && values.endDate === undefined) {
-    Swal.fire({
-      title: 'Error',
-      html: 'Please select Call or Due Date',
-      icon: 'error'
-    })
-    return
-  }
-
-  if (!validateInterestRate()) {
     return
   }
 
@@ -376,19 +346,21 @@ async function onSubmit() {
       try {
         const data = getSubmittingData()
 
-        loading.value = true
+        console.log(data)
 
-        if (mode.value === 'add') {
-          const res = await http.post('loanPayment', data)
-          router.push(`/edit-loan-payment/${res.data}`)
-        } else if (mode.value === 'edit') {
-          const resEdit = await http.put('loanPayment', data)
-          dataLP.value = resEdit.data
+        // loading.value = true
+
+        // if (mode.value === 'add') {
+        //   const res = await http.post('loanPayment', data)
+        //   router.push(`/edit-loan-payment/${res.data}`)
+        // } else if (mode.value === 'edit') {
+        //   const resEdit = await http.put('loanPayment', data)
+        //   dataLP.value = resEdit.data
           
-        } else if (mode.value === 'refNew') {
-          const resRefNew = await http.post('loanPayment/refNewLoanPayment', data)
-          router.push(`/edit-loan-payment/${resRefNew.data}`)
-        }
+        // } else if (mode.value === 'refNew') {
+        //   const resRefNew = await http.post('loanPayment/refNewLoanPayment', data)
+        //   router.push(`/edit-loan-payment/${resRefNew.data}`)
+        // }
       } finally {
         loading.value = false
       }
@@ -398,97 +370,30 @@ async function onSubmit() {
 
 function getSubmittingData() {
   const data = {
-    loanTypeId: values['loanTypeId'],
-    companyId: values['companyId'],
-    currencyId: values['currencyId'],
-    series: values['series'],
-    remark: values['remark'],
+    projectName: values['projectName'],
+    location: values['location'],
+    locationCoordinates: values['locationCoordinates'],
+    investment: values['investment'],
+    amountGreenhouseGases: values['amountGreenhouseGases'],
+    technologyTypeId: values['technologyTypeId'],
+    createdDate: values['createdDate'],
     startDate: values['startDate'],
     endDate: values['endDate'],
-    endDateAtCall: values['endDateAtCall'],
-    exchangeRate: values['exchangeRate'],
-    netAmount: values['netAmount'],
-    docCurrencyAmount: values['docCurrencyAmount'],
-    note: values['note'],
-    parentLoanPaymentId: parentLoanPaymentId
+    projectOwner: values['projectOwner'],
+    coordinator: values['coordinator'],
+    position: values['position'],
+    address: values['address'],
+    tel: values['tel'],
+    email: values['email'],
   }
 
-  if (typeof values['bankId'] === 'number') {
-    data.bankId = values['bankId']
-    data.customBank = null
-  } else {
-    data.bankId = null
-    data.customBank = values['bankId']
+  if (mode.value !== "add") {
+    data.loanPaymentId = values["loanPaymentId"];
   }
 
-  if (typeof values['baseRateId'] === 'number') {
-    data.baseRateId = values['baseRateId']
-    data.customBaseRate = null
-  } else {
-    data.baseRateId = null
-    data.customBaseRate = values['baseRateId']
-  }
-
-  if (mode.value !== 'add') {
-    data.loanPaymentId = values['loanPaymentId']
-  }
-
-  data.modifiedInterests = []
-
-  data.deletedInterestIds = deletedInterestIds
   return data
 }
 
-function validateInterestRate() {
-  var massage = ''
-  var error = false
-
-  if (effectiveFromRows.length == 0) {
-    Swal.fire({
-      title: 'Error',
-      html: 'Interest Rates must have at least one.',
-      icon: 'error'
-    })
-    return false
-  }
-
-  if (moment(effectiveFromRows[0]).isAfter(values.startDate)) {
-    error = true
-    massage = 'The Borrow Date must occur after the Effective From in Interest Rate.'
-  }
-
-  let dup = {}
-
-  for (const data of effectiveFromRows) {
-    let d = typeof data !== 'string' ? data.toLocaleDateString('en-CA') : data
-    if (dup[d]) {
-      error = true
-      massage =
-        moment(data).format('DD/MM/YYYY') +
-        ' Duplicate date, please select a new one in Interest Rate.'
-      break
-    } else {
-      dup[d] = 1
-    }
-
-    if (values.endDate !== undefined && moment(data).isAfter(values.endDate)) {
-      error = true
-      massage = 'The Due date must occur after the Effective From in Interest Rate.'
-      break
-    }
-  }
-
-  if (error) {
-    Swal.fire({
-      title: 'Error',
-      html: massage,
-      icon: 'error'
-    })
-    return false
-  }
-
-  return true
-}
 
 function goBackToLPList() {
   if (mode.value !== 'view') {
@@ -535,38 +440,38 @@ function goBackToLPList() {
   }
 }
 
-function onInterestRateGridReady(params) {
-  interestRateGridApi = params.api
+function onDeveloperGridReady(params) {
+  developerGridApi = params.api
 }
 
-function showInterestRate(mode, data) {
-  interestRateModal.value.openModalInterestRate(mode, data)
+function showDeveloper(mode, data) {
+  console.log(mode,data);
+  developerModal.value.openModalDeveloper(mode, data)
 }
 
-function onInsertInterestRate(data) {
+function onInsertDeveloper(data) {
   data.isModified = true
-  interestRateGridApi.applyTransaction({ add: [data] })
-  interestRateGridApi.redrawRows()
+  developerGridApi.applyTransaction({ add: [data] })
+  developerGridApi.redrawRows()
 }
 
-function onUpdateInterestRate(data) {
+function onUpdateDeveloper(data) {
   data.isModified = true
-  interestRateGridApi.applyTransaction({ update: [data] })
-  interestRateGridApi.redrawRows()
+  developerGridApi.applyTransaction({ update: [data] })
+  developerGridApi.redrawRows()
 }
 
-function onDeleteInterestRate(data) {
+function onDeleteDeveloper(data) {
   if (data.id > 0) {
     deletedInterestIds.push(data.id)
   }
-  interestRateGridApi.applyTransaction({ remove: [data] })
-  interestRateGridApi.redrawRows()
+  developerGridApi.applyTransaction({ remove: [data] })
+  developerGridApi.redrawRows()
 }
 
 async function loadDataDefault() {
   if (mode.value === 'add') {
     values.createdDate = new Date().toJSON().slice(0, 10)
-    values.status = 'Open'
   } else {
     statusSetLoanPayment = true
 
@@ -579,27 +484,18 @@ async function loadDataDefault() {
 }
 
 async function loadCombobox() {
-  // const resType = await http.get('comboboxs/loanTypeCombobox')
-  // const dataType = resType.data.map((x) => {
-  //   return {
-  //     loanTypeId: x.loanTypeId,
-  //     label: x.name,
-  //     allowendDateAtCall: x.allowendDateAtCall,
-  //     allowCustomBaseRate: x.allowCustomBaseRate,
-  //     customCondition: x.customCondition,
-  //     loanTypeBaseRates: x.loanTypeBaseRates.map((a) => {
-  //       return {
-  //         baseRateId: a.baseRateId,
-  //         label: a.code
-  //       }
-  //     })
-  //   }
-  // })
-  // loanTypes.value = dataType
+  const resType = await http.get('api/projectCarbon/technologyTypeCombobox')
+  const dataType = resType.data.map((x) => {
+    return {
+      technologyTypeId: x.technologyTypeId,
+      label: x.description,
+    }
+  })
+  technologyTypes.value = dataType;
+  if (technologyTypes.value.length === 1) {
+      values.technologyTypeId = technologyTypes.value[0].technologyTypeId;
+    }
 
-  if (mode.value === 'edit') {
-    onChangeLoanType()
-  }
 }
 
 </script>

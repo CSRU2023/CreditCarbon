@@ -83,7 +83,7 @@ const columnDefs = [
     filterParams: textFilterParams,
   },
   {
-    headerName: "Created Date",
+    headerName: "วันที่ขึ้นทะเบียน",
     field: "createdDate",
     sortable: true,
     filter: "agDateColumnFilter",
@@ -181,7 +181,7 @@ function onGridReady(params) {
 }
 
 async function getProCarbon() {
-  const response = await http.get('api/user')
+  const response = await http.get('api/projectCarbon')
   gridApi.setRowData(response.data)
 }
 

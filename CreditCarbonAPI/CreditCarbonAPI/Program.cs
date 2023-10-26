@@ -30,6 +30,7 @@ builder.Services.AddDbContext<CarbonCreditContext>(options =>
 //AddScoped
 builder.Services.AddScoped(typeof(ICarbonCreditEfRepository<>), typeof(CarbonCreditEfRepository<>));
 builder.Services.AddScoped<IProjectCarbonMarketsRepository, ProjectCarbonMarketsRepository>();
+builder.Services.AddScoped<IProjectCarbonRepository, ProjectCarbonRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
