@@ -1,5 +1,5 @@
 <template>
-  <Modal ref="modal">
+  <Modal ref="modal" size="xl">
     <template #title>Add User</template>
 
     <template #body>
