@@ -48,7 +48,7 @@ import { RouterView } from 'vue-router'
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                   <li><a class="dropdown-item" href="#">ข้อมูลส่วนตัว</a></li>
-                  <li><a class="dropdown-item" href="#">กระเป๋า</a></li>
+                  <li><a class="dropdown-item" href="Wallet">กระเป๋า</a></li>
                   <li><a class="dropdown-item" href="User">User</a></li>
                   <li>
                     <hr class="dropdown-divider" />
