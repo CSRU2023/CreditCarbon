@@ -124,5 +124,17 @@ export function getAllRows(gridApi) {
   return rowData;
 }
 
+// input 1000 outPut 1,000
+export function formatUnit(number) {
+  return Math.floor(number.value)
+    .toString()
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+};
+
+// input 1000 outPut ฿1,000
+export function currencyFormatter(params) {
+  return '฿' + formatUnit(params);
+};
+
 
 
