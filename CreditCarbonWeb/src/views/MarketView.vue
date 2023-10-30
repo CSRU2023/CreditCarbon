@@ -40,6 +40,7 @@
   import http from '../helpers/http-client'
   import Swal from 'sweetalert2'
   import MarketDetail from "../components/Market/MarketDetail.vue";
+  import { formatUnit, currencyFormatter } from "../helpers/ag-grid-helper";
   
   let gridColumnApi;
   let gridApi;
@@ -90,6 +91,7 @@
         container.classList.add("d-flex", "justify-content-center");
 
         const viewButton = createCellButton("", "fa-file-icon", "View");
+        viewButton.classList.add("btn-outline-secondary", "me-1");
         viewButton.addEventListener("click", () => {
           ShowDetail(params.data.projectCarbonId);
         });
@@ -114,22 +116,6 @@
     const response = await http.get('api/ProjectCarbonMarkets')
     gridApi.setRowData(response.data)
   }
-
-  function currencyFormatter(params) {
-    return '฿' + formatNumber(params.value);
-  };
-
-  function formatNumber(number) {
-    return Math.floor(number)
-      .toString()
-      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-  };
-
-  function formatUnit(number) {
-    return Math.floor(number.value)
-      .toString()
-      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-  };
 
   function onRowClicked() {
     console.log('22')
