@@ -3,13 +3,17 @@ using System.Collections.Generic;
 
 namespace CreditCarbonAPI.Models;
 
-public partial class ProjectCarbonMarket
+public partial class ProjectCarbonMarketsHistory
 {
+    public int HistoryId { get; set; }
+
     public int ProjectCarbonMarketsId { get; set; }
 
     public int ProjectCarbonId { get; set; }
 
-    public int? AmountGreenhouseGases { get; set; }
+    public int? AmountGreenhouseGasesBuy { get; set; }
+
+    public int? AmountGreenhouseGasesRemaining { get; set; }
 
     public int? Price { get; set; }
 
@@ -19,11 +23,7 @@ public partial class ProjectCarbonMarket
 
     public int CreatedByUserId { get; set; }
 
-    public DateTime UpdatedDate { get; set; }
-
-    public int UpdatedByUserId { get; set; }
-
     public virtual ProjectCarbon ProjectCarbon { get; set; }
 
-    public virtual ICollection<ProjectCarbonMarketsHistory> ProjectCarbonMarketsHistories { get; set; } = new List<ProjectCarbonMarketsHistory>();
+    public virtual ProjectCarbonMarket ProjectCarbonMarkets { get; set; }
 }

@@ -17,6 +17,8 @@ public partial class CarbonCreditContext : DbContext
 
     public virtual DbSet<ProjectCarbonMarket> ProjectCarbonMarkets { get; set; }
 
+    public virtual DbSet<ProjectCarbonMarketsHistory> ProjectCarbonMarketsHistories { get; set; }
+
     public virtual DbSet<ProjectCarbonStatus> ProjectCarbonStatuses { get; set; }
 
     public virtual DbSet<ProjectCarbonTransaction> ProjectCarbonTransactions { get; set; }
@@ -71,15 +73,12 @@ public partial class CarbonCreditContext : DbContext
         {
             entity.ToTable("ProjectCarbon_Developer");
 
-            entity.Property(e => e.ProjectCarbonDeveloperId)
-                .ValueGeneratedNever()
-                .HasColumnName("ProjectCarbon_DeveloperId");
+            entity.Property(e => e.ProjectCarbonDeveloperId).HasColumnName("ProjectCarbon_DeveloperId");
             entity.Property(e => e.Address).HasMaxLength(250);
             entity.Property(e => e.Coordinator).HasMaxLength(100);
             entity.Property(e => e.Developer).HasMaxLength(100);
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.Position).HasMaxLength(50);
-            entity.Property(e => e.ProjectCarbonId).ValueGeneratedOnAdd();
             entity.Property(e => e.Tel).HasMaxLength(10);
 
             entity.HasOne(d => d.ProjectCarbon).WithMany(p => p.ProjectCarbonDevelopers)
@@ -101,13 +100,32 @@ public partial class CarbonCreditContext : DbContext
                 .HasConstraintName("FK_ProjectCarbonMarkets_ProjectCarbon");
         });
 
+        modelBuilder.Entity<ProjectCarbonMarketsHistory>(entity =>
+        {
+            entity.HasKey(e => e.HistoryId);
+
+            entity.ToTable("ProjectCarbonMarkets_History");
+
+            entity.Property(e => e.AmountGreenhouseGasesBuy).HasColumnName("AmountGreenhouseGases_Buy");
+            entity.Property(e => e.AmountGreenhouseGasesRemaining).HasColumnName("AmountGreenhouseGases_Remaining");
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
+            entity.HasOne(d => d.ProjectCarbon).WithMany(p => p.ProjectCarbonMarketsHistories)
+                .HasForeignKey(d => d.ProjectCarbonId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProjectCarbonMarkets_History_ProjectCarbon");
+
+            entity.HasOne(d => d.ProjectCarbonMarkets).WithMany(p => p.ProjectCarbonMarketsHistories)
+                .HasForeignKey(d => d.ProjectCarbonMarketsId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProjectCarbonMarkets_History_ProjectCarbonMarkets");
+        });
+
         modelBuilder.Entity<ProjectCarbonStatus>(entity =>
         {
             entity.ToTable("ProjectCarbon_Status");
 
-            entity.Property(e => e.ProjectCarbonStatusId)
-                .ValueGeneratedNever()
-                .HasColumnName("ProjectCarbon_StatusId");
+            entity.Property(e => e.ProjectCarbonStatusId).HasColumnName("ProjectCarbon_StatusId");
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Massage).HasMaxLength(100);
 
@@ -126,9 +144,7 @@ public partial class CarbonCreditContext : DbContext
         {
             entity.ToTable("ProjectCarbon_Transaction");
 
-            entity.Property(e => e.ProjectCarbonTransactionId)
-                .ValueGeneratedNever()
-                .HasColumnName("ProjectCarbon_TransactionId");
+            entity.Property(e => e.ProjectCarbonTransactionId).HasColumnName("ProjectCarbon_TransactionId");
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Massage).HasMaxLength(100);
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
@@ -219,18 +235,21 @@ public partial class CarbonCreditContext : DbContext
         {
             entity.ToTable("Wallet");
 
-            entity.Property(e => e.WalletId).ValueGeneratedNever();
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
             entity.Property(e => e.WalletCarbon).HasColumnType("numeric(18, 2)");
             entity.Property(e => e.WalletMoney).HasColumnType("decimal(18, 2)");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Wallets)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Wallet_User");
         });
 
         modelBuilder.Entity<WalletTransaction>(entity =>
         {
             entity.ToTable("WalletTransaction");
 
-            entity.Property(e => e.WalletTransactionId).ValueGeneratedNever();
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Image)
                 .HasMaxLength(50)
@@ -238,7 +257,23 @@ public partial class CarbonCreditContext : DbContext
             entity.Property(e => e.Massage).HasMaxLength(100);
             entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
             entity.Property(e => e.WalletCarbon).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.WalletMoney).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.WalletCarbonRecevice)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("WalletCarbon_Recevice");
+            entity.Property(e => e.WalletCarbonTransfer)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("WalletCarbon_Transfer");
+            entity.Property(e => e.WalletMoneyReceive)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("WalletMoney_Receive");
+            entity.Property(e => e.WalletMoneyTopUp)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("WalletMoney_TopUp");
+
+            entity.HasOne(d => d.Wallet).WithMany(p => p.WalletTransactions)
+                .HasForeignKey(d => d.WalletId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_WalletTransaction_Wallet");
         });
 
         OnModelCreatingPartial(modelBuilder);

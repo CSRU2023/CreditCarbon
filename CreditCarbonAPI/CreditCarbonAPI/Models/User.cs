@@ -49,7 +49,9 @@ public partial class User
 
     public int UpdatedByUserId { get; set; }
 
-    public virtual ICollection<ProjectCarbon>? ProjectCarbons { get; set; } = new List<ProjectCarbon>();
+    public virtual ICollection<ProjectCarbon> ProjectCarbons { get; set; } = new List<ProjectCarbon>();
 
-    public virtual Role? Role { get; set; }
+    public virtual Role Role { get; set; }
+
+    public virtual ICollection<Wallet> Wallets { get; set; } = new List<Wallet>();
 }

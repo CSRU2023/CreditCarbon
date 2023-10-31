@@ -111,12 +111,12 @@
               <ErrorMessage class="invalid-feedback" name="projectOwner" />
             </div>
             <div class="col-6 mb-2">
-              <label for="coordinator" class="form-label">ผู้ประสานงาน <span class="text-danger">*</span></label>
+              <label for="coordinator" class="form-label">ผู้ประสานงาน</label>
               <Field type="text" class="form-control" id="coordinator" name="coordinator" />
               <ErrorMessage class="invalid-feedback" name="coordinator" />
             </div>
             <div class="col-6 mb-2">
-              <label for="position" class="form-label">ตำแหน่ง</label>
+              <label for="position" class="form-label">ตำแหน่ง <span class="text-danger">*</span></label>
               <Field type="text" class="form-control" id="position" name="position" />
               <ErrorMessage class="invalid-feedback" name="position" />
             </div>
@@ -136,7 +136,42 @@
               <ErrorMessage class="invalid-feedback" name="email" />
             </div>
           </div>
-          <div
+
+          <div class="row mb-3 pb-3 border-bottom">
+            <label class="form-label h5 mb-3">รายละเอียดผู้พัฒนาโครงการ</label>
+            <div class="col-12 mb-2">
+              <label for="developer" class="form-label">ผู้พัฒนาโครงการ <span class="text-danger">*</span></label>
+              <Field type="text" class="form-control" id="developer" name="developer" />
+              <ErrorMessage class="invalid-feedback" name="developer" />
+            </div>
+            <div class="col-6 mb-2">
+              <label for="developer_coordinator" class="form-label">ผู้ประสานงาน</label>
+              <Field type="text" class="form-control" id="developer_coordinator" name="developer_coordinator" />
+              <ErrorMessage class="invalid-feedback" name="developer_coordinator" />
+            </div>
+            <div class="col-6 mb-2">
+              <label for="developer_position" class="form-label">ตำแหน่ง <span class="text-danger">*</span></label>
+              <Field type="text" class="form-control" id="developer_position" name="developer_position" />
+              <ErrorMessage class="invalid-feedback" name="developer_position" />
+            </div>
+            <div class="col-12 mb-2">
+              <label for="developer_address" class="form-label">ที่อยู่ <span class="text-danger">*</span></label>
+              <Field type="text" class="form-control" id="developer_address" name="developer_address" />
+              <ErrorMessage class="invalid-feedback" name="developer_address" />
+            </div>
+            <div class="col-6 mb-2">
+              <label for="developer_tel" class="form-label">โทรศัพท์ <span class="text-danger">*</span></label>
+              <Field type="text" class="form-control" id="developer_tel" name="developer_tel" />
+              <ErrorMessage class="invalid-feedback" name="developer_tel" />
+            </div>
+            <div class="col-6 mb-2">
+              <label for="developer_email" class="form-label">E-mail<span class="text-danger">*</span></label>
+              <Field type="text" class="form-control" id="developer_email" name="developer_email" />
+              <ErrorMessage class="invalid-feedback" name="developer_email" />
+            </div>
+          </div>
+          
+          <!-- <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2"
           >
             <label class="form-label h5 mb-3">รายละเอียดผู้พัฒนาโครงการ</label>
@@ -148,15 +183,15 @@
               >
                 <font-awesome-icon icon="fa-solid fa-plus" /> เพิ่ม
               </button>
-              <DeveloperModal
+              <DeveloperModal data-bs-toggle="modal"
                 ref="developerModal"
                 @insertDeveloper="onInsertDeveloper"
                 @updateDeveloper="onUpdateDeveloper"
               />
             </div>
-          </div>
+          </div> -->
 
-          <ag-grid-vue
+          <!-- <ag-grid-vue
             class="ag-theme-alpine pb-3 mb-3 border-bottom"
             domLayout="autoHeight"
             :columnDefs="developerColumnDefs"
@@ -165,7 +200,7 @@
             :getRowNodeId="getRowNodeId"
             @grid-ready="onDeveloperGridReady"
           >
-          </ag-grid-vue>
+          </ag-grid-vue> -->
         </fieldset>
       </form>
     </div>
@@ -348,19 +383,16 @@ async function onSubmit() {
 
         console.log(data)
 
-        // loading.value = true
+        loading.value = true
 
-        // if (mode.value === 'add') {
-        //   const res = await http.post('loanPayment', data)
-        //   router.push(`/edit-loan-payment/${res.data}`)
-        // } else if (mode.value === 'edit') {
+        if (mode.value === 'add') {
+          const res = await http.post('api/projectCarbon/Insert', data)
+          router.push(`/project-carbon`)
+        } 
+        // else if (mode.value === 'edit') {
         //   const resEdit = await http.put('loanPayment', data)
-        //   dataLP.value = resEdit.data
+        //   dataLP.value = resEdit.data}
           
-        // } else if (mode.value === 'refNew') {
-        //   const resRefNew = await http.post('loanPayment/refNewLoanPayment', data)
-        //   router.push(`/edit-loan-payment/${resRefNew.data}`)
-        // }
       } finally {
         loading.value = false
       }
@@ -370,6 +402,7 @@ async function onSubmit() {
 
 function getSubmittingData() {
   const data = {
+    userId:4,
     projectName: values['projectName'],
     location: values['location'],
     locationCoordinates: values['locationCoordinates'],
@@ -385,11 +418,24 @@ function getSubmittingData() {
     address: values['address'],
     tel: values['tel'],
     email: values['email'],
+    createdByUserId:-1,
+    updatedByUserId:-1,
+    projectCarbonDevelopers:[]
   }
 
   if (mode.value !== "add") {
-    data.loanPaymentId = values["loanPaymentId"];
+    data.projectCarbonId = values["projectCarbonId"];
   }
+
+  data.projectCarbonDevelopers.push({
+    // projectCarbon_DeveloperId: 1,
+    developer: values['developer'],
+    coordinator: values['developer_coordinator'],
+    position: values['developer_position'],
+    address: values['developer_address'],
+    tel: values['developer_tel'],
+    email: values['developer_email'],
+  });
 
   return data
 }

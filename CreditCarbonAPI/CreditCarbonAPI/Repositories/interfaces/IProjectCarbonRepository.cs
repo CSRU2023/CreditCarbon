@@ -6,5 +6,6 @@ namespace CreditCarbonAPI.Repositories.interfaces
         IEnumerable<ProjectCarbon> Gets();
         IEnumerable<TechnologyType> GetTechnologyTypeCombobox();
         ProjectCarbonById GetProjectCarbonById(int id);
+        ProjectCarbonById Insert(ProjectCarbonById entitiy);
     }
 }

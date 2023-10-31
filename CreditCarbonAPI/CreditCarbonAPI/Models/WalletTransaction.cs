@@ -9,7 +9,13 @@ public partial class WalletTransaction
 
     public int WalletId { get; set; }
 
-    public decimal? WalletMoney { get; set; }
+    public decimal? WalletMoneyTopUp { get; set; }
+
+    public decimal? WalletMoneyReceive { get; set; }
+
+    public decimal? WalletCarbonTransfer { get; set; }
+
+    public decimal? WalletCarbonRecevice { get; set; }
 
     public decimal? WalletCarbon { get; set; }
 
@@ -26,4 +32,6 @@ public partial class WalletTransaction
     public DateTime UpdatedDate { get; set; }
 
     public int UpdatedByUserId { get; set; }
+
+    public virtual Wallet Wallet { get; set; }
 }

@@ -51,6 +51,8 @@ public partial class ProjectCarbon
 
     public virtual ICollection<ProjectCarbonMarket> ProjectCarbonMarkets { get; set; } = new List<ProjectCarbonMarket>();
 
+    public virtual ICollection<ProjectCarbonMarketsHistory> ProjectCarbonMarketsHistories { get; set; } = new List<ProjectCarbonMarketsHistory>();
+
     public virtual ICollection<ProjectCarbonStatus> ProjectCarbonStatuses { get; set; } = new List<ProjectCarbonStatus>();
 
     public virtual ICollection<ProjectCarbonTransaction> ProjectCarbonTransactions { get; set; } = new List<ProjectCarbonTransaction>();
