@@ -76,7 +76,23 @@
       hide: true
     },
     {
-      headerName: 'First Name',
+      headerName: 'วันที่',
+      field: 'date',
+      sortable: true,
+      filter: 'agTextColumnFilter',
+      filterParams: textFilterParams,
+      flex: 1
+    },
+    {
+      headerName: 'เวลา',
+      field: 'time',
+      sortable: true,
+      filter: 'agTextColumnFilter',
+      filterParams: textFilterParams,
+      flex: 1
+    },
+    {
+      headerName: 'ชื่อ',
       field: 'firstName',
       sortable: true,
       filter: 'agTextColumnFilter',
@@ -84,80 +100,110 @@
       flex: 1
     },
     {
-      headerName: 'Last Name',
+      headerName: 'นามสกุล',
       field: 'lastName',
       sortable: true,
       filter: 'agTextColumnFilter',
       filterParams: textFilterParams,
       flex: 1
     },
+   
     {
-      headerName: 'Email',
-      field: 'email',
+      headerName: 'ประเภทธุรกรรม',
+      field: 'transection',
       sortable: true,
       filter: 'agTextColumnFilter',
       filterParams: textFilterParams,
       flex: 1
     },
     {
-      headerName: 'Active',
-      field: 'isActive',
+      headerName: 'จำนวนเงิน',
+      field: 'amount',
       sortable: true,
-      filter: 'agSetColumnFilter',
-      filterParams: activeFilterParams,
-      width: 100,
-      cellClassRules: {
-        'text-left': 'true'
-      },
-      cellRenderer: (param) => {
-        if (param.data.isActive) {
-          const icon = document.getElementById('fa-check-icon').cloneNode(true)
-          icon.removeAttribute('id')
-          icon.classList.remove('d-none')
-          return icon
-        }
-      }
+      filter: 'agTextColumnFilter',
+      filterParams: textFilterParams,
+      flex: 1
     },
     {
-      headerName: '',
-      field: '',
-      suppressMenu: true,
-      lockPosition: true,
-      width: 240,
-      cellRenderer: (param) => {
-        const container = document.createElement('div')
-        container.classList.add('align-items-center')
-  
-        const activeButton = createCellButton()
-        if (param.data.isActive == 1) {
-          activeButton.innerText = 'Set Inactive'
-          activeButton.classList.add('btn-outline-warning')
-        } else {
-          activeButton.innerText = 'Set active'
-          activeButton.classList.add('btn-outline-success')
-        }
-        activeButton.style.width = '90px'
-        activeButton.style.marginBottom = '7px'
-        activeButton.classList.add('me-2')
-        activeButton.addEventListener('click', () => {
-          openSetInactive(param.data)
-        })
-  
-        const deleteButton = createCellButton('', 'fa-trash-icon', 'Delete')
-        deleteButton.classList.add('btn-outline-danger')
-        deleteButton.style.marginBottom = '7px'
-        deleteButton.addEventListener('click', () => {
-          onDelete(param.data.userId)
-        })
-  
-        container.appendChild(activeButton)
-        container.appendChild(deleteButton)
-  
-        return container
+      headerName: 'รายละเอียด',
+      // field: 'price',
+      flex: 0.5,
+      cellRenderer: (params) => {
+        const container = document.createElement("div");
+        container.classList.add("d-flex", "justify-content-center");
+
+        const viewButton = createCellButton("", "fa-file-icon", "View");
+        viewButton.classList.add("btn-outline-secondary", "me-1");
+        viewButton.addEventListener("click", () => {
+          ShowDetail(params.data.projectCarbonId);
+        });
+
+        container.appendChild(viewButton);
+
+        return container;
       },
-      pinned: 'right',
-      cellClass: ['d-flex', 'justify-content-center']
-    }
+    },
+    
+    // {
+    //   headerName: '',
+    //   field: '',
+    //   suppressMenu: true,
+    //   lockPosition: true,
+    //   width: 240,
+    //   cellRenderer: (param) => {
+    //     const container = document.createElement('div')
+    //     container.classList.add('align-items-center')
+  
+    //     const activeButton = createCellButton()
+    //     if (param.data.isActive == 1) {
+    //       activeButton.innerText = 'Set Inactive'
+    //       activeButton.classList.add('btn-outline-warning')
+    //     } else {
+    //       activeButton.innerText = 'Set active'
+    //       activeButton.classList.add('btn-outline-success')
+    //     }
+    //     activeButton.style.width = '90px'
+    //     activeButton.style.marginBottom = '7px'
+    //     activeButton.classList.add('me-2')
+    //     activeButton.addEventListener('click', () => {
+    //       openSetInactive(param.data)
+    //     })
+  
+        // const deleteButton = createCellButton('', 'fa-trash-icon', 'Delete')
+        // deleteButton.classList.add('btn-outline-danger')
+        // deleteButton.style.marginBottom = '7px'
+        // deleteButton.addEventListener('click', () => {
+        //   onDelete(param.data.userId)
+        // },
+    //     {
+    //   headerName: 'รายละเอียด',
+    //   // field: 'price',
+    //   flex: 0.5,
+    //   cellRenderer: (params) => {
+    //     const container = document.createElement("div");
+    //     container.classList.add("d-flex", "justify-content-center");
+
+    //     const viewButton = createCellButton("", "fa-file-icon", "View");
+    //     viewButton.classList.add("btn-outline-secondary", "me-1");
+    //     viewButton.addEventListener("click", () => {
+    //       ShowDetail(params.data.projectCarbonId);
+    //     });
+
+    //     container.appendChild(viewButton);
+
+    //     return container;
+    //   },
+    // },
+        // )
+  
+    //     container.appendChild(activeButton)
+    //     container.appendChild(deleteButton)
+  
+    //     return container
+    //   },
+    //   pinned: 'right',
+    //   cellClass: ['d-flex', 'justify-content-center']
+    // }
   ]
   
   const rowData = []
@@ -176,39 +222,39 @@
     gridApi.setRowData(response.data)
   }
   
-  function onDelete(userId) {
-    Swal.fire({
-      title: 'Deleting User',
-      text: 'Are you sure you want to delete this User?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirm'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await http.delete('/users/delete/' + userId)
-        refreshData()
-      }
-    })
-  }
+  // function onDelete(userId) {
+  //   Swal.fire({
+  //     title: 'Deleting User',
+  //     text: 'Are you sure you want to delete this User?',
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Confirm'
+  //   }).then(async (result) => {
+  //     if (result.isConfirmed) {
+  //       await http.delete('/users/delete/' + userId)
+  //       refreshData()
+  //     }
+  //   })
+  // }
   
-  function openSetInactive(data) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: `Please confirm to change User status to '${data.activeFlag ? 'Inactive' : 'Active'}'`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirm'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        data.activeFlag = !data.activeFlag
-        await http.put('/users/update/' + data.userId, data)
-        refreshData()
-      }
-    })
-  }
+  // function openSetInactive(data) {
+  //   Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: `Please confirm to change User status to '${data.activeFlag ? 'Inactive' : 'Active'}'`,
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Confirm'
+  //   }).then(async (result) => {
+  //     if (result.isConfirmed) {
+  //       data.activeFlag = !data.activeFlag
+  //       await http.put('/users/update/' + data.userId, data)
+  //       refreshData()
+  //     }
+  //   })
+  // }
   </script>
   
