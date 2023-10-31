@@ -14,7 +14,9 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("http://127.0.0.1:5173",
             "http://localhost:5173")
-                   .WithExposedHeaders("x-custom-header");
+                   .WithExposedHeaders("x-custom-header")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
         });
 });
 
@@ -23,9 +25,9 @@ builder.Services.AddControllersWithViews().AddNewtonsoftJson(options => options.
 //builder.Services.AddDbContext<CarbonCreditContext>();
 builder.Services.AddDbContext<CarbonCreditContext>(options =>
 {
-    options.UseSqlServer("Server=DESKTOP-K7IEBE5\\SQLEXPRESS;Database=CarbonCredit; Trusted_Connection=True;TrustServerCertificate=True;");
+    //options.UseSqlServer("Server=DESKTOP-K7IEBE5\\SQLEXPRESS;Database=CarbonCredit; Trusted_Connection=True;TrustServerCertificate=True;");
     // options.UseSqlServer("Server=C1001226\\SQLEXPRESS;Database=CarbonCredit;User=sa; Password=1234; TrustServerCertificate=True;Encrypt=False;");
-    // options.UseSqlServer("Server=MSI\\MSSQLSERVER2;Database=CarbonCredit;Trusted_Connection=True;TrustServerCertificate=True;"); //Tam
+     options.UseSqlServer("Server=MSI\\MSSQLSERVER2;Database=CarbonCredit;Trusted_Connection=True;TrustServerCertificate=True;"); //Tam
 });
 
 //AddScoped
