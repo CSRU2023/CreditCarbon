@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using CreditCarbonAPI.Repositories.interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
+using CreditCarbonAPI.Models;
 
 namespace CreditCarbonAPI.Controllers
 {
@@ -20,12 +21,25 @@ namespace CreditCarbonAPI.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpGet]
-        public IActionResult GetAll()
+        [HttpGet("GetById")]
+        public IActionResult GetById(int Id)
         {
-            var listUsers = _userRepository.Gets();
+            var Result = _userRepository.GetUserById(Id);
 
-            return Ok(listUsers);
+            return Ok(Result);
+        }
+
+        [HttpPost("Save")]
+        public IActionResult Insert(User model)
+        {
+            var result = _userRepository.SaveUser(model);
+            if (!result)
+            {
+                return BadRequest("Duplicate UserName");
+            }
+            
+            return Ok(true);
+            
         }
 
     }
