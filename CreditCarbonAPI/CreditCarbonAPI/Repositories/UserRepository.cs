@@ -64,7 +64,7 @@ namespace CreditCarbonAPI.Repositories
             {
                 var userList = _carbonCreditEfRepository.Gets();
                 var checkDuplicate = (from a in userList
-                                      where a.UserName == model.UserName
+                                      where a.UserName.ToUpper() == model.UserName.ToUpper()
                                       select new
                                       {
                                           userName = a.UserName
@@ -72,6 +72,11 @@ namespace CreditCarbonAPI.Repositories
                                       }).FirstOrDefault();
                 if (checkDuplicate == null)
                 {
+                    model.CreatedDate = DateTime.Now;
+                    model.UpdatedDate = DateTime.Now;
+                    model.UpdatedByUserId = -1;
+                    model.CreatedByUserId = -1;
+                    model.IsActive = true;
                     _carbonCreditEfRepository.Insert(model);
                     return true;
                 }
