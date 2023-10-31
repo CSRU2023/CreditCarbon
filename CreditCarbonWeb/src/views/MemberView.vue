@@ -15,13 +15,13 @@ import { h } from 'vue';
             <div class="col">
               <!-- <h4><p class="my-10">บุคคลทั่วไป </p></h4> -->
               
-              <img src="@/assets/img/hu.png" class="img-fluid rounded" />
-              <a class="nav-link" href="/about"> <h1>บุคคลทั่วไป</h1> </a>
+              <img src="@/assets/img/p1.jpg" class="img-fluid rounded" />
+              <a class="nav-link" href="/regis/3"> <h1>บุคคลทั่วไป</h1> </a>
             </div>
             <div class="col mt-1" >
           
-            <img src="@/assets/img/buil.png" class="img-fluid rounded" />
-           <a class="nav-link" href="/about"> <h1>นิติบุคคล</h1> </a>
+            <img src="@/assets/img/p2.png" class="img-fluid rounded" />
+           <a class="nav-link" href="/regis/2"> <h1>นิติบุคคล</h1> </a>
       </div>
 <!--End Column-->
                         

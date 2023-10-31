@@ -23,7 +23,8 @@ builder.Services.AddControllersWithViews().AddNewtonsoftJson(options => options.
 //builder.Services.AddDbContext<CarbonCreditContext>();
 builder.Services.AddDbContext<CarbonCreditContext>(options =>
 {
-    options.UseSqlServer("Server=C1001226\\SQLEXPRESS;Database=CarbonCredit;User=sa; Password=1234; TrustServerCertificate=True;Encrypt=False;");
+    options.UseSqlServer("Server=DESKTOP-K7IEBE5\\SQLEXPRESS;Database=CarbonCredit; Trusted_Connection=True;TrustServerCertificate=True;");
+    // options.UseSqlServer("Server=C1001226\\SQLEXPRESS;Database=CarbonCredit;User=sa; Password=1234; TrustServerCertificate=True;Encrypt=False;");
     // options.UseSqlServer("Server=MSI\\MSSQLSERVER2;Database=CarbonCredit;Trusted_Connection=True;TrustServerCertificate=True;"); //Tam
 });
 

@@ -9,6 +9,10 @@ import ProjectCarbonView from '../views/ProjectCarbonView.vue'
 import ProjectCarbonDetail from '../components/ProjectCarbon/ProjectCarbonDetail.vue'
 import MarketViewVue from '@/views/MarketView.vue'
 
+import RegisPerson from '../components/ProjectCarbon/RegisPerson.vue'
+import WalletView from  '../views/WalletView.vue'
+
+// import WalletView from '../views/WalletView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -47,6 +51,11 @@ const router = createRouter({
       component: UserView
     },
     {
+      path: '/wallet',
+      name: 'wallet',
+      component: WalletView
+    },
+    {
       path: '/project-carbon',
       name: 'project-carbon',
       component: ProjectCarbonView
@@ -77,6 +86,21 @@ const router = createRouter({
       name: 'market',
       component: MarketViewVue
     },
+    {
+      path: "/regis",
+      name: "resis",
+      component: () =>
+      RegisPerson,
+      meta: { roles: [] },
+    },
+    {
+      path: "/regis/:id",
+      name: "regis",
+      component: () =>
+      RegisPerson,
+      meta: { roles: [] },
+    },
+        
   ]
 })
 

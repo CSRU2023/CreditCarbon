@@ -7,9 +7,9 @@ import { RouterView } from 'vue-router'
     <div class="align-items-center">
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd">
         <div class="container-fluid">
-          <img alt="carboncredit" class="logo" src="@/assets/logo.svg" width="50" height="50" />
+          <img alt="carboncredit" class="logo" src="@/assets/img/bg.png" width="100" height="70" />
           <a class="navbar-brand" href="#">
-            <h2>Credit Carbon <br /></h2>
+            <h2 class="container mr-5">Credit Carbon <br /></h2>
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
             aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +48,7 @@ import { RouterView } from 'vue-router'
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                   <li><a class="dropdown-item" href="#">ข้อมูลส่วนตัว</a></li>
-                  <li><a class="dropdown-item" href="#">กระเป๋า</a></li>
+                  <li><a class="dropdown-item" href="Wallet">กระเป๋า</a></li>
                   <li><a class="dropdown-item" href="User">User</a></li>
                   <li>
                     <hr class="dropdown-divider" />
