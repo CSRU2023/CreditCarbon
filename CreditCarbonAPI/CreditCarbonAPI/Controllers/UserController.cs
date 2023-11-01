@@ -21,6 +21,14 @@ namespace CreditCarbonAPI.Controllers
             _userRepository = userRepository;
         }
 
+        [HttpGet]
+        public IActionResult Gets()
+        {
+            var Result = _userRepository.Gets();
+
+            return Ok(Result);
+        }
+
         [HttpGet("GetById")]
         public IActionResult GetById(int Id)
         {
@@ -28,6 +36,7 @@ namespace CreditCarbonAPI.Controllers
 
             return Ok(Result);
         }
+
 
         [HttpPost("Save")]
         public IActionResult Insert(User model)
