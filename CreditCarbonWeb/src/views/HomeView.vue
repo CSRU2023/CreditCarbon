@@ -52,16 +52,16 @@
                   <div class="container text-center">
                   <div class="row">
                   <div class="col">
-                        <img src="@/assets/img/tree.jpg" class="img-thumbnail shadow" style="cursor: pointer;" />
+                        <img src="@/assets/img/1.jpg" class="img-thumbnail shadow" style="cursor: pointer;" />
                   </div>
                   <div class="col">
                         <img src="@/assets/img/car1.jpg" class="img-fluid rounded" />
                   </div>
                   <div class="col">
-                        <img src="@/assets/img/tree.jpg" class="img-fluid rounded" />
+                        <img src="@/assets/img/2.jpg" class="img-fluid rounded" />
                   </div>
                   <div class="col">
-                        <img src="@/assets/img/tree.jpg" class="img-fluid rounded" />
+                        <img src="@/assets/img/3.jpg" class="img-fluid rounded" />
                   </div>
                   </div>
                   </div>
@@ -69,8 +69,6 @@
         </div>
       </div>
    
-  
-
   <!--Two column-->
   <!-- <div>
      
@@ -104,5 +102,10 @@
       <img src="https://eu4climate.eu/wp-content/uploads/2023/02/CO2-emission-factor01-1024x594-1-1024x512.jpeg" class="rounded-end " alt="...">
       <h3>“คาร์บอนเครดิต” หมายถึง สิทธิที่เกิดจากการลดการปล่อยก๊าซเรือนกระจก หรือ คาร์บอนไดออกไซด์ออกสู่สิ่งแวดล้อม (ปกติการปล่อยก๊าซเรือนกระจกอื่น ๆ จะเทียบกับสัดส่วนการปล่อยคาร์บอนไดออกไซด์) รวมถึ ง การเก็บกัก หรือ การดูดกลับด้วย จากกิจกรรมหรือโครงการ ซึ่งสิทธิดังกล่าวจะต้องมีการรับรองโดยหน่วยรับรอง ตามระเบียบหรือวิธีการของทางราชการที่เป็นที่ยอมรับหรือเทียบได้กับระดับสากล โดยประเทศไทยก็มีหน่วยงานชื่อว่า องค์การบริหารจัดการก๊าซเรือนกระจก (อบก.) เป็นองค์การมหาชน ภายใต้กระทรวงทรัพยากรธรรมชาติ และสิ่งแวดล้อม เป็นหน่วยวิเคราะห์ กลั่นกรอง และรับรองโครงการ </h3>
      </div> -->
+
+     
 </template>
-<style></style>
+
+<style>
+
+</style>
