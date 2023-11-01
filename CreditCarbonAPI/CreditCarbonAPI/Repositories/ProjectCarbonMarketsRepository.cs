@@ -16,6 +16,7 @@ namespace CreditCarbonAPI.Repositories
         private ICarbonCreditEfRepository<ProjectCarbonMarketsHistory> _projectCarbonMarketsHistory;
         private ICarbonCreditEfRepository<WalletTransaction> _walletTransaction;
         private readonly CarbonCreditContext _context;
+        private readonly ICarbonCreditEfRepository<TechnologyType> _technologyType;
 
 
         public ProjectCarbonMarketsRepository(ICarbonCreditEfRepository<ProjectCarbonMarket> projectCarbonMarket, 
@@ -23,7 +24,8 @@ namespace CreditCarbonAPI.Repositories
                                                 ICarbonCreditEfRepository<Wallet> wallet,
                                                 ICarbonCreditEfRepository<ProjectCarbonMarketsHistory> projectCarbonMarketHistory,
                                                 ICarbonCreditEfRepository<WalletTransaction> walletTransaction,
-                                                CarbonCreditContext context)
+                                                CarbonCreditContext context,
+                                                ICarbonCreditEfRepository<TechnologyType> technologyType)
         {
             _projectCarbonMarket = projectCarbonMarket;
             _projectCarbon = projectCarbon;
@@ -31,6 +33,7 @@ namespace CreditCarbonAPI.Repositories
             _projectCarbonMarketsHistory = projectCarbonMarketHistory;
             _walletTransaction = walletTransaction;
             _context = context;
+            _technologyType = technologyType;
         }
 
         public IEnumerable<ProjectCarbonMarket> Gets()
@@ -38,6 +41,7 @@ namespace CreditCarbonAPI.Repositories
             try
             {
                 var p = _projectCarbon.Gets();
+                var t = _technologyType.Gets();
 
                 var listProjectCarbonMarket = _projectCarbonMarket.Gets();
                 return listProjectCarbonMarket;

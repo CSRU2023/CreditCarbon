@@ -1,22 +1,57 @@
 <template>
-  <Modal ref="modal">
-    <template #title>DDDDD Detail</template>
-
+  <Modal ref="modal" size="lg">
+    <template #title>Sale</template>
     <template #body>
-      <div class="row mt-4">
-        <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2"
-        >
-          <label class="form-label h6 mb-3 mx-2">รายละเอียดผู้พัฒนาโครงการ</label>
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5">
+              <label for="dp-input-effectiveFrom" class="form-label">ชื่อโครงการ :</label>
+            </div>
+            <div class="col-7">
+              <p>{{ dataView?.projectCarbon?.projectName }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-5">
+              <label for="dp-input-effectiveFrom" class="form-label">ประเภท :</label>
+            </div>
+            <div class="col-7">
+              <p>Land Use (Agriculture & Forestry)</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-5">
+              <label for="dp-input-effectiveFrom" class="form-label">ปริมาณคาร์บอนเครดิต :</label>
+            </div>
+            <div class="col-7">
+              <p>{{ dataView?.amountGreenhouseGases }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-5">
+              <label for="dp-input-effectiveFrom" class="form-label">ราคา/หน่วย :</label>
+            </div>
+            <div class="col-7">
+              <p>{{ formatUnit(dataView?.unitPrice) }} บาท</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-5">
+              <label for="dp-input-effectiveFrom" class="form-label">ซื้อ :</label>
+            </div>
+            <div class="col-5">
+              <Field
+                type="number"
+                class="form-control"
+                id="buy"
+                name="buy"
+                :class="{ 'is-invalid': errors.buy }"
+              />
+              <ErrorMessage class="invalid-feedback" name="buy" />
+            </div>
+          </div>
         </div>
-        <ag-grid-vue
-          class="ag-theme-alpine"
-          domLayout="autoHeight"
-          :columnDefs="developerColumnDefs"
-          :rowData="[dataView]"
-          :defaultColDef="defaultColDef"
-        >
-        </ag-grid-vue>
       </div>
     </template>
 
@@ -51,86 +86,34 @@ import http from '/src/helpers/http-client'
 import DatePicker from '../DatePicker.vue'
 import moment from 'moment'
 import { textFilterParams } from '../../helpers/ag-grid-helper'
+import { useForm, ErrorMessage } from 'vee-validate'
+import * as yup from 'yup'
+import Swal from 'sweetalert2'
+import { useRoute, useRouter } from 'vue-router'
+
+
+const router = useRouter()
+const route = useRoute()
+
+const validationSchema = yup.object({
+  buy: yup.number().required().nullable().label('ซื้อ')
+})
+
+const { errors, values, resetForm, setValues, validate, setFieldValue } = useForm({
+  validationSchema: validationSchema
+})
 
 const modal = ref(null)
 const loading = ref(false)
 
-let dataView = ref([])
+let dataView = ref(null)
 
 const defaultColDef = {
   resizable: true
 }
 
-let gridApi;
-
-const developerColumnDefs = [
-  {
-    headerName: 'ชื่อโครงการ',
-    field: 'projectCarbon.projectName',
-    flex: 1,
-    editable: true,
-    cellEditor: 'agNumberCellEditor',
-  },
-  {
-    headerName: 'ประเภท',
-    field: '',
-    flex: 1
-  },
-  {
-    headerName: 'คาร์บอนเครดิต',
-    field: 'amountGreenhouseGases',
-    flex: 1
-  },
-  {
-    headerName: 'ราคา/หน่วย',
-    field: 'unitPrice',
-    flex: 1
-  },
-  {
-    headerName: 'จำนวน',
-    field: 'buy',
-    flex: 1,
-    editable: true,
-    cellEditor: 'agNumberCellEditor',
-  },
-  {
-    field: 'projectCarbonMarketsId',
-    hide: true
-  },
-  {
-    field: 'projectCarbonId',
-    hide: true
-  },
-  {
-    field: 'price',
-    hide: true
-  },
-  {
-    field: 'unitPrice',
-    hide: true
-  },
-  {
-    field: 'createdDate',
-    hide: true
-  },
-  {
-    field: 'createdByUserId',
-    hide: true
-  },
-  {
-    field: 'buyForUserId',
-    hide: true
-  },
-  {
-    field: 'buyAmountGreenhouseGases',
-    hide: true
-  },
-]
-
 function openModal(data) {
   modal.value.show()
-  // const response = await http.get('api/ProjectCarbon/GetById', { params: { id: data } })
-  console.log('dataShow', data)
   dataView.value = data
   console.log('dataView', dataView)
 }
@@ -145,12 +128,44 @@ function onClose() {
 }
 
 function onSubmit() {
+  Swal.fire({
+    title: 'Are you sure to Buy it?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'No'
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        const data = getSubmittingData()
+        const res = await http.post('api/ProjectCarbonMarkets/BuyCarbon', data)
 
-  let rowData = [];
-  this.gridApi.forEachNode(node => rowData.push(node.data));
+        loading.value = true
+      } finally {
+        modal.value.hide()
+        loading.value = false
+        window.location.reload();
+      }
+    }
+  })
+}
 
-  console.log('onSubmit', rowData)
-  // modal.value.hide()
+function getSubmittingData() {
+  const data = {
+    buyForUserId:4,
+    buyAmountGreenhouseGases: values['buy'],
+    projectCarbonMarketsId: dataView?.value?.projectCarbonMarketsId,
+    projectCarbonId: dataView?.value?.projectCarbonId,
+    amountGreenhouseGases: dataView?.value?.amountGreenhouseGases,
+    price: dataView?.value?.price,
+    unitPrice: dataView?.value?.unitPrice,
+    createdDate: dataView?.value?.createdDate,
+    createdByUserId: dataView?.value?.createdByUserId,
+
+  }
+  return data
 }
 
 function formatUnit(number) {
