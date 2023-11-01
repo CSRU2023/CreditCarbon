@@ -43,6 +43,7 @@ import {
   faPlus,
   faFile,
   faArrowLeft,
+  faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -59,7 +60,8 @@ library.add(
   faPlus,
   faFile,
   faArrowLeft,
-  faFloppyDisk
+  faFloppyDisk,
+  faCartShopping
   );
 
 
