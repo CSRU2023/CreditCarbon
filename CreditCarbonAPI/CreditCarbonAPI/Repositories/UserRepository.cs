@@ -14,6 +14,19 @@ namespace CreditCarbonAPI.Repositories
             _carbonCreditEfRepository = carbonCreditEfRepository;
         }
 
+        public IEnumerable<User> Gets(){
+            try
+            {
+               var users = _carbonCreditEfRepository.Gets();
+               return users;
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+        }
+
         public User GetUserById(int Id)
         {
             try
