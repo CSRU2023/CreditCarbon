@@ -46,6 +46,16 @@ namespace CreditCarbonAPI.Controllers
             return Ok(result);
         }
 
+        [HttpPost("Insert")]
+        public IActionResult Insert(ProjectCarbonById data)
+        {
+            var result = _projectCarbonRepository.Insert(data);
+
+            return Ok(result);
+        }
+
+        
+
     }
 
 }

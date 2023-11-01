@@ -88,7 +88,6 @@ a,
   background-color: #e9ecef;
 }
 
-
 .modal-backdrop {display: none;}
 
 /* .modal-backdrop {
@@ -98,3 +97,6 @@ a,
 /* .modal-backdrop{z-index: 0;}
 .modal{z-index: 99999;} */
 
+.modal modal-dialog {
+  top: 1;
+ }

@@ -115,7 +115,42 @@ const columnDefs = [
     flex: 1,
   },
   {
-    headerName: "Status",
+    headerName: "สถานะ",
+    field: "isApprove",
+    sortable: true,
+    filter: "agTextColumnFilter",
+    filterParams: textFilterParams,
+    flex: 1,
+    cellRenderer: (param) => {
+          const a = document.createElement('button');
+          const b = document.createElement('span')
+          
+          switch(param.data.isApprove){
+            case 1 : 
+              a.className = "btn btn-outline-success btn-sm"
+              a.innerText = 'Passed ';
+              a.style.border = '1px solid #28a745';
+              a.style.position = 'absolute';
+              a.style.top = '4px';
+              b.className = 'fa fa-check-circle'
+              break;
+            case 0 : 
+              a.className = "btn btn-outline-danger btn-sm"
+              a.innerText = 'Failed ';
+              a.style.border = '1px solid #dc3545';
+              a.style.position = 'absolute';
+              a.style.top = '4px';
+              b.className = 'fa fa-times-circle'
+              break;
+          }
+          a.appendChild(b);
+          
+          return a;
+        }
+
+  },
+  {
+    headerName: "ขั้นตอน",
     field: "status",
     sortable: true,
     filter: "agTextColumnFilter",
