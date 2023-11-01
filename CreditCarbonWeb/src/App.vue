@@ -73,4 +73,5 @@ import { RouterView } from 'vue-router'
   <font-awesome-icon id="fa-pen-to-square-icon" icon="fa-solid fa-pen-to-square" class="d-none" />
   <font-awesome-icon id="fa-eye-icon" icon="fa-solid fa-eye" class="d-none" />
   <font-awesome-icon id="fa-file-icon" icon="fa-solid fa-file" class="d-none" />
+  <font-awesome-icon id="fa-cart-shopping-icon" style="color: #1e8538;" icon="fa-solid fa-cart-shopping" class="d-none" />
 </template>

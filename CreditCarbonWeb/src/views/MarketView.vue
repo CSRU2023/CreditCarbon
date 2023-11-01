@@ -21,7 +21,6 @@
                     :paginationPageSize="10"
                     :cacheBlockSize="50"
                     @grid-ready="onGridReady"
-                    @rowClicked="onRowClicked"
                     
                   >
                   </ag-grid-vue>
@@ -31,8 +30,11 @@
           </div>
         </div>
       </div>
+      <!-- <BuyCrabonMarket ref="buyCrabonMarket" v-if="test.value"/>
+      <MarketDetail ref="marketDetail" v-if="!test.value"/> -->
+      <BuyCrabonMarket ref="buyCrabonMarket" />
       <MarketDetail ref="marketDetail" />
-  </template>
+    </template>
   
   <script setup>
   import { ref } from 'vue'
@@ -40,12 +42,16 @@
   import http from '../helpers/http-client'
   import Swal from 'sweetalert2'
   import MarketDetail from "../components/Market/MarketDetail.vue";
+  import BuyCrabonMarket from "../components/Market/BuyCrabonMarket.vue";
   import { formatUnit, currencyFormatter } from "../helpers/ag-grid-helper";
   
   let gridColumnApi;
   let gridApi;
 
   const marketDetail = ref(null);
+  const buyCrabonMarket = ref(null);
+  let test = ref(false)
+
   
   const defaultColDef = {
     resizable: true
@@ -84,19 +90,33 @@
     },
     {
       headerName: 'รายละเอียด',
-      // field: 'price',
       flex: 0.5,
       cellRenderer: (params) => {
         const container = document.createElement("div");
         container.classList.add("d-flex", "justify-content-center");
+
+        const buyButton = createCellButton("", "fa-cart-shopping-icon", "Sale");
+        buyButton.classList.add("btn-outline-secondary", "me-1");
+        buyButton.addEventListener("click", () => {
+          ShowItemsForSale(params.data);
+        });
+        // buyButton.addEventListener("mouseup", () => {
+        //   mouseUp(true)
+        // });
+        container.appendChild(buyButton);
 
         const viewButton = createCellButton("", "fa-file-icon", "View");
         viewButton.classList.add("btn-outline-secondary", "me-1");
         viewButton.addEventListener("click", () => {
           ShowDetail(params.data.projectCarbonId);
         });
-
+        // viewButton.addEventListener("mouseup", () => {
+        //   mouseUp(false)
+        // });
+        
+        
         container.appendChild(viewButton);
+
 
         return container;
       },
@@ -117,16 +137,24 @@
     gridApi.setRowData(response.data)
   }
 
-  function onRowClicked() {
-    console.log('22')
-    window.localStorage.setItem('userId', '1234')
-    console.log(window.localStorage.getItem('userId'))
-    window.localStorage.removeItem('CART')
-  }
+  // function onRowClicked() {
+  //   console.log('22')
+  //   window.localStorage.setItem('userId', '1234')
+  //   console.log(window.localStorage.getItem('userId'))
+  //   window.localStorage.removeItem('CART')
+  // }
   
   function ShowDetail(data) {
     marketDetail.value.openModal(data);
   }
+
+  function ShowItemsForSale(data) {
+    buyCrabonMarket.value.openModal(data);
+  }
+
+  // function mouseUp(data) {
+  //   test.value = data
+  // }
   
   </script>
   

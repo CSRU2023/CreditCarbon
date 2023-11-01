@@ -49,16 +49,20 @@ namespace CreditCarbonAPI.Repositories
             
         }
 
+        private Wallet GetWallet(int userId)
+        {
+            var result = (from a in _wallet.Gets()
+                              where a.UserId == userId
+                              select a).FirstOrDefault();
+
+            return result;
+        }
         public bool BuyCarbon(BuyCarbonMarket model)
         {
 
             try
             {
-                var wallet = _wallet.Gets();
-                var userWallet = (from a in wallet
-                                  where a.UserId == model.BuyForUserId
-                                  select a).FirstOrDefault();
-
+                var userWallet = GetWallet(model.BuyForUserId);
 
                 if (userWallet != null )
                 {
@@ -92,19 +96,11 @@ namespace CreditCarbonAPI.Repositories
                             CreatedDate = DateTime.Now,
                         });
 
-                        //_wallet.Update(new Wallet()
-                        //{
-                        //    WalletId = userWallet.WalletId,
-                        //    UserId = userWallet.UserId,
-                        //    WalletCarbon = userWallet.WalletCarbon + (decimal)model.BuyAmountGreenhouseGases,
-                        //    WalletMoney = checkWallet,
-                        //    CreatedDate = userWallet.CreatedDate,
-                        //    CreatedByUserId = userWallet.CreatedByUserId,
-                        //    UpdatedByUserId = model.BuyForUserId,
-                        //    UpdatedDate = DateTime.Now,
-                        //    User = new User(),
-                        //    WalletTransactions = new List<WalletTransaction>() { }
-                        //});
+                        userWallet.WalletCarbon = userWallet.WalletCarbon + (decimal)model.BuyAmountGreenhouseGases;
+                        userWallet.WalletMoney = checkWallet;
+                        userWallet.UpdatedByUserId = model.BuyForUserId;
+                        userWallet.UpdatedDate = DateTime.Now;
+                        _wallet.Update(userWallet);
 
                         //Todo
                         //_walletTransaction.Insert(new WalletTransaction()

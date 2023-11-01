@@ -1,5 +1,5 @@
 <template>
-  <Modal ref="modal" size="xl">
+  <Modal ref="modal2" size="xl" idModal="modal2">
     <template #title>Project Detail</template>
 
     <template #body>
@@ -164,7 +164,7 @@
       <button
         type="button"
         class="btn btn-secondary"
-        data-dismiss="modal"
+        data-dismiss="modal2"
         @click="onClose"
         :disabled="loading"
       >
@@ -183,7 +183,7 @@ import DatePicker from '../DatePicker.vue'
 import moment from 'moment'
 import { textFilterParams } from '../../helpers/ag-grid-helper'
 
-const modal = ref(null)
+const modal2 = ref(null)
 const loading = ref(false)
 
 let dataView = ref({})
@@ -232,13 +232,12 @@ const developerColumnDefs = [
     sortable: true,
     filter: 'agTextColumnFilter',
     filterParams: textFilterParams
-  }
+  },
 ]
 
 async function openModal(data) {
-  modal.value.show()
+  modal2.value.show()
   const response = await http.get('api/ProjectCarbon/GetById', { params: { id: data } })
-  console.log('dataShow', response.data)
   dataView.value = response.data
 }
 
@@ -247,7 +246,7 @@ defineExpose({
 })
 
 function onClose() {
-  modal.value.hide()
+  modal2.value.hide()
   console.log('save', dataView)
 }
 
