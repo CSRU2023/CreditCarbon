@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using CreditCarbonAPI.Models;
 using CreditCarbonAPI.Repositories;
 using CreditCarbonAPI.Repositories.interfaces;
@@ -28,6 +28,17 @@ namespace CreditCarbonAPI.Controllers
             var listProjectCarbonMarkets = _projectCarbonMarketsRepository.Gets();
 
             return Ok(listProjectCarbonMarkets);
+        }
+        [HttpPost("BuyCarbon")]
+        public IActionResult BuyCarbon(BuyCarbonMarket model) 
+        {
+            var result = _projectCarbonMarketsRepository.BuyCarbon(model);
+            if (!result)
+            {
+                return BadRequest("จำนวนเงินไม่พอ กรุณาเติมเงิน");
+            }
+
+            return Ok(true);
         }
 
     }
