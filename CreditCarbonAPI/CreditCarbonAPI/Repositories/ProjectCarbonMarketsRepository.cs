@@ -16,6 +16,7 @@ namespace CreditCarbonAPI.Repositories
         private ICarbonCreditEfRepository<ProjectCarbonMarketsHistory> _projectCarbonMarketsHistory;
         private ICarbonCreditEfRepository<WalletTransaction> _walletTransaction;
         private readonly CarbonCreditContext _context;
+        private readonly ICarbonCreditEfRepository<TechnologyType> _technologyType;
 
 
         public ProjectCarbonMarketsRepository(ICarbonCreditEfRepository<ProjectCarbonMarket> projectCarbonMarket, 
@@ -23,7 +24,8 @@ namespace CreditCarbonAPI.Repositories
                                                 ICarbonCreditEfRepository<Wallet> wallet,
                                                 ICarbonCreditEfRepository<ProjectCarbonMarketsHistory> projectCarbonMarketHistory,
                                                 ICarbonCreditEfRepository<WalletTransaction> walletTransaction,
-                                                CarbonCreditContext context)
+                                                CarbonCreditContext context,
+                                                ICarbonCreditEfRepository<TechnologyType> technologyType)
         {
             _projectCarbonMarket = projectCarbonMarket;
             _projectCarbon = projectCarbon;
@@ -31,6 +33,7 @@ namespace CreditCarbonAPI.Repositories
             _projectCarbonMarketsHistory = projectCarbonMarketHistory;
             _walletTransaction = walletTransaction;
             _context = context;
+            _technologyType = technologyType;
         }
 
         public IEnumerable<ProjectCarbonMarket> Gets()
@@ -38,6 +41,7 @@ namespace CreditCarbonAPI.Repositories
             try
             {
                 var p = _projectCarbon.Gets();
+                var t = _technologyType.Gets();
 
                 var listProjectCarbonMarket = _projectCarbonMarket.Gets();
                 return listProjectCarbonMarket;
@@ -49,16 +53,20 @@ namespace CreditCarbonAPI.Repositories
             
         }
 
+        private Wallet GetWallet(int userId)
+        {
+            var result = (from a in _wallet.Gets()
+                              where a.UserId == userId
+                              select a).FirstOrDefault();
+
+            return result;
+        }
         public bool BuyCarbon(BuyCarbonMarket model)
         {
 
             try
             {
-                var wallet = _wallet.Gets();
-                var userWallet = (from a in wallet
-                                  where a.UserId == model.BuyForUserId
-                                  select a).FirstOrDefault();
-
+                var userWallet = GetWallet(model.BuyForUserId);
 
                 if (userWallet != null )
                 {
@@ -92,19 +100,19 @@ namespace CreditCarbonAPI.Repositories
                             CreatedDate = DateTime.Now,
                         });
 
-                        //_wallet.Update(new Wallet()
-                        //{
-                        //    WalletId = userWallet.WalletId,
-                        //    UserId = userWallet.UserId,
-                        //    WalletCarbon = userWallet.WalletCarbon + (decimal)model.BuyAmountGreenhouseGases,
-                        //    WalletMoney = checkWallet,
-                        //    CreatedDate = userWallet.CreatedDate,
-                        //    CreatedByUserId = userWallet.CreatedByUserId,
-                        //    UpdatedByUserId = model.BuyForUserId,
-                        //    UpdatedDate = DateTime.Now,
-                        //    User = new User(),
-                        //    WalletTransactions = new List<WalletTransaction>() { }
-                        //});
+                        _wallet.Update(new Wallet()
+                        {
+                           WalletId = userWallet.WalletId,
+                           UserId = userWallet.UserId,
+                           WalletCarbon = userWallet.WalletCarbon + (decimal)model.BuyAmountGreenhouseGases,
+                           WalletMoney = checkWallet,
+                           CreatedDate = userWallet.CreatedDate,
+                           CreatedByUserId = userWallet.CreatedByUserId,
+                           UpdatedByUserId = model.BuyForUserId,
+                           UpdatedDate = DateTime.Now,
+                           User = new User(),
+                           WalletTransactions = new List<WalletTransaction>() { }
+                        });
 
                         //Todo
                         //_walletTransaction.Insert(new WalletTransaction()

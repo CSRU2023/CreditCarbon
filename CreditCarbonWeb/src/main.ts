@@ -28,6 +28,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faFloppyDisk,
+  faCircleCheck
 } from "@fortawesome/free-regular-svg-icons";
 import {
   faArrowsRotate,
@@ -43,6 +44,9 @@ import {
   faPlus,
   faFile,
   faArrowLeft,
+  faCartShopping,
+  faAnglesRight,
+  faRepeat
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -59,7 +63,11 @@ library.add(
   faPlus,
   faFile,
   faArrowLeft,
-  faFloppyDisk
+  faFloppyDisk,
+  faCartShopping,
+  faCircleCheck,
+  faAnglesRight,
+  faRepeat
   );
 
 

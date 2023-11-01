@@ -10,6 +10,7 @@ namespace CreditCarbonAPI.Repositories
     {
         private ICarbonCreditEfRepository<ProjectCarbon> _projectCarbon;
         private ICarbonCreditEfRepository<ProjectCarbonStatus> _projectCarbonStatus;
+        private ICarbonCreditEfRepository<Status> _status;
         private ICarbonCreditEfRepository<TechnologyType> _technologyType;
         private ICarbonCreditEfRepository<User> _user;
         private ICarbonCreditEfRepository<ProjectCarbonDeveloper> _projectCarconDeveloper;
@@ -18,23 +19,58 @@ namespace CreditCarbonAPI.Repositories
         , ICarbonCreditEfRepository<TechnologyType> technologyType
         , ICarbonCreditEfRepository<User> user
         , ICarbonCreditEfRepository<ProjectCarbonDeveloper> projectCarconDeveloper
-        , ICarbonCreditEfRepository<ProjectCarbonStatus> projectCarbonStatus)
+        , ICarbonCreditEfRepository<ProjectCarbonStatus> projectCarbonStatus
+        , ICarbonCreditEfRepository<Status> status)
         {
             _projectCarbon = projectCarbon;
             _technologyType = technologyType;
             _user = user;
             _projectCarconDeveloper = projectCarconDeveloper;
             _projectCarbonStatus = projectCarbonStatus;
+            _status = status;
         }
 
-        public IEnumerable<ProjectCarbon> Gets()
+        public IEnumerable<ProjectCarbonDto> Gets()
         {
             try
             {
                 var projectCarbon = _projectCarbon.Gets();
-                var projectCarbonStatus = _projectCarbonStatus.Gets();
+                var projectCarbonStatus = _projectCarbonStatus.Gets().OrderByDescending(x => x.CreatedDate);
+                var status = _status.Gets();
 
-                var listProjectCarbon = _projectCarbon.Gets();
+                var listProjectCarbon = (from a in projectCarbon
+                            join c in projectCarbonStatus on a.ProjectCarbonId equals c.ProjectCarbonId 
+                            join d in status on c.StatusId equals d.StatusId
+                            select new ProjectCarbonDto
+                            {
+                                ProjectCarbonId = a.ProjectCarbonId,
+                                TechnologyTypeId = a.TechnologyTypeId,
+                                UserId = a.UserId,
+                                ProjectName = a.ProjectName,
+                                ProjectDescription = a.ProjectDescription,
+                                Location = a.Location,
+                                LocationCoordinates = a.LocationCoordinates,
+                                Investment = a.Investment,
+                                AmountGreenhouseGases = a.AmountGreenhouseGases,
+                                StartDate = a.StartDate,
+                                EndDate = a.EndDate,
+                                ProjectOwner = a.ProjectOwner,
+                                Coordinator = a.Coordinator,
+                                Position = a.Position,
+                                Address = a.Address,
+                                Tel = a.Tel,
+                                Email = a.Email,
+                                StatusId = d.StatusId,
+                                StatusName = d.Name,
+                                StatusDescription = d.Description,
+                                Massage = c.Massage,
+                                IsApprove = c.IsApprove,
+                                CreatedDate = a.CreatedDate,
+                                CreatedByUserId = a.CreatedByUserId,
+                                UpdatedDate = a.UpdatedDate,
+                                UpdatedByUserId = a.UpdatedByUserId
+                            }).ToList();
+
                 return listProjectCarbon;
             }
             catch (Exception ex)
