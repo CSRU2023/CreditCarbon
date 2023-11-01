@@ -100,11 +100,19 @@ namespace CreditCarbonAPI.Repositories
                             CreatedDate = DateTime.Now,
                         });
 
-                        userWallet.WalletCarbon = userWallet.WalletCarbon + (decimal)model.BuyAmountGreenhouseGases;
-                        userWallet.WalletMoney = checkWallet;
-                        userWallet.UpdatedByUserId = model.BuyForUserId;
-                        userWallet.UpdatedDate = DateTime.Now;
-                        _wallet.Update(userWallet);
+                        _wallet.Update(new Wallet()
+                        {
+                           WalletId = userWallet.WalletId,
+                           UserId = userWallet.UserId,
+                           WalletCarbon = userWallet.WalletCarbon + (decimal)model.BuyAmountGreenhouseGases,
+                           WalletMoney = checkWallet,
+                           CreatedDate = userWallet.CreatedDate,
+                           CreatedByUserId = userWallet.CreatedByUserId,
+                           UpdatedByUserId = model.BuyForUserId,
+                           UpdatedDate = DateTime.Now,
+                           User = new User(),
+                           WalletTransactions = new List<WalletTransaction>() { }
+                        });
 
                         //Todo
                         //_walletTransaction.Insert(new WalletTransaction()
